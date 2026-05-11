@@ -111,14 +111,13 @@ namespace ShibaGTGenesis.Menu
             }
             catch { }
 
-            if (menu != null && Settings.frozen)
+            if (Settings.frozen)
             {
-                if (savedpOs == Vector3.zero)
-                    savedpOs = GorillaLocomotion.Player.Instance.transform.position;
-
-                WorldMods.NoGravity();
-                GorillaLocomotion.Player.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                GorillaLocomotion.Player.Instance.transform.position = savedpOs;
+                if (menu != null)
+                {
+                    GorillaTagger.Instance.bodyCollider.attachedRigidbody.velocity = Vector3.zero;
+                    GorillaTagger.Instance.bodyCollider.attachedRigidbody.angularVelocity = Vector3.zero;
+                }
             }
 
             if (triggerpages)
@@ -834,7 +833,7 @@ namespace ShibaGTGenesis.Menu
         public GameObject menubackground;
         public GameObject canvasObject;
 
-        public Vector3 savedpOs;
+        public Vector3 closePosition;
 
         public Text tooltip;
 

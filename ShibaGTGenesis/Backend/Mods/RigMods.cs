@@ -43,9 +43,9 @@ namespace ShibaGTGenesis
 
         public static void HeadSpin()
         {
-            Vector3 rot = GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset;
+            Vector3 rot = GorillaTagger.Instance.myVRRig.head.trackingRotationOffset;
             rot.y += 15f;
-            GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset = rot;
+            GorillaTagger.Instance.myVRRig.head.trackingRotationOffset = rot;
 
             Spin = true;
         }
@@ -56,17 +56,17 @@ namespace ShibaGTGenesis
             {
                 Spin = false;
 
-                Vector3 rot = GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset;
+                Vector3 rot = GorillaTagger.Instance.myVRRig.head.trackingRotationOffset;
                 rot.y = 0f;
-                GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset = rot;
+                GorillaTagger.Instance.myVRRig.head.trackingRotationOffset = rot;
             }
         }
 
         public static void HeadRoll()
         {
-            Vector3 rot = GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset;
+            Vector3 rot = GorillaTagger.Instance.myVRRig.head.trackingRotationOffset;
             rot.x += 15f;
-            GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset = rot;
+            GorillaTagger.Instance.myVRRig.head.trackingRotationOffset = rot;
 
             Roll = true;
         }
@@ -91,9 +91,9 @@ namespace ShibaGTGenesis
             {
                 back = false;
 
-                Vector3 rot = GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset;
+                Vector3 rot = GorillaTagger.Instance.myVRRig.head.trackingRotationOffset;
                 rot.y = 0f;
-                GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset = rot;
+                GorillaTagger.Instance.myVRRig.head.trackingRotationOffset = rot;
             }
         }
 
@@ -101,9 +101,9 @@ namespace ShibaGTGenesis
         {
             if (!back)
             {
-                Vector3 rot = GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset;
+                Vector3 rot = GorillaTagger.Instance.myVRRig.head.trackingRotationOffset;
                 rot.y = 180f;
-                GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset = rot;
+                GorillaTagger.Instance.myVRRig.head.trackingRotationOffset = rot;
 
                 back = true;
             }
@@ -113,10 +113,10 @@ namespace ShibaGTGenesis
         {
             if (!upside)
             {
-                Vector3 rot = GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset;
+                Vector3 rot = GorillaTagger.Instance.myVRRig.head.trackingRotationOffset;
                 rot.x = 180f;
                 rot.y = 180f;
-                GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset = rot;
+                GorillaTagger.Instance.myVRRig.head.trackingRotationOffset = rot;
 
                 upside = true;
             }
@@ -128,10 +128,10 @@ namespace ShibaGTGenesis
             {
                 upside = false;
 
-                Vector3 rot = GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset;
+                Vector3 rot = GorillaTagger.Instance.myVRRig.head.trackingRotationOffset;
                 rot.x = 0f;
                 rot.y = 0f;
-                GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset = rot;
+                GorillaTagger.Instance.myVRRig.head.trackingRotationOffset = rot;
             }
         }
 
@@ -159,9 +159,9 @@ namespace ShibaGTGenesis
             if (Roll)
             {
                 Roll = false;
-                Vector3 rot = GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset;
+                Vector3 rot = GorillaTagger.Instance.myVRRig.head.trackingRotationOffset;
                 rot.x = 0f;
-                GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset = rot;
+                GorillaTagger.Instance.myVRRig.head.trackingRotationOffset = rot;
             }
         }
 

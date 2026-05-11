@@ -318,6 +318,52 @@ namespace ShibaGTGenesis
             }
         }
 
+        public static void CopyGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+
+                if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = false;
+                    GorillaTagger.Instance.myVRRig.transform.position = Menu.Menu.lockTarget.transform.position;
+                    GorillaTagger.Instance.myVRRig.transform.rotation = Menu.Menu.lockTarget.transform.rotation;
+                    GorillaTagger.Instance.myVRRig.rightHandPlayer.transform.position = Menu.Menu.lockTarget.rightHandPlayer.transform.position;
+                    GorillaTagger.Instance.myVRRig.rightHandPlayer.transform.rotation = Menu.Menu.lockTarget.rightHandPlayer.transform.rotation;
+                    GorillaTagger.Instance.myVRRig.leftHandPlayer.transform.position = Menu.Menu.lockTarget.leftHandPlayer.transform.position;
+                    GorillaTagger.Instance.myVRRig.leftHandPlayer.transform.rotation = Menu.Menu.lockTarget.leftHandPlayer.transform.rotation;
+                    GorillaTagger.Instance.myVRRig.head.headTransform.transform.rotation = Menu.Menu.lockTarget.head.headTransform.transform.rotation;
+                    GorillaTagger.Instance.myVRRig.head.headTransform.transform.position = Menu.Menu.lockTarget.head.headTransform.transform.position;
+                    GorillaTagger.Instance.offlineVRRig.headConstraint.rotation = Menu.Menu.lockTarget.headConstraint.rotation;
+
+                }
+
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        Menu.Menu.lockTarget = rig;
+                        Menu.Menu.gunLocked = true;
+                    }
+                }
+                else
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = true;
+                    GorillaTagger.Instance.myVRRig.headConstraint.rotation = GorillaLocomotion.Player.Instance.headCollider.transform.rotation;
+
+                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
+            }
+        }
+
         public static void HoldRig()
         {
             if (EasyInputs.GetGripButtonDown(EasyHand.LeftHand))

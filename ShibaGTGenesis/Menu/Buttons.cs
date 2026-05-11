@@ -110,6 +110,7 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Noclip [t]", method =() => PlayerMovement.Noclip(), isTogglable = true, toolTip = "Press trigger for noclip!" },
                 new ButtonInfo { buttonText = "Fly", method =() => PlayerMovement.Fly(), isTogglable = true, toolTip = "Press secondary to fly!" },
                 new ButtonInfo { buttonText = "Trigger Fly", method =() => PlayerMovement.TriggerFly(), isTogglable = true, toolTip = "Press trigger to fly!" },
+                new ButtonInfo { buttonText = "Noclip Trigger Fly", method =() => PlayerMovement.TriggerFly(), isTogglable = true, toolTip = "Press trigger to fly!" },
                 new ButtonInfo { buttonText = "Bark Fly", method =() => PlayerMovement.BarkFly(), disableMethod =() => PlayerMovement.OffBarkFly(), isTogglable = true, toolTip = "Just like bark!" },
                 new ButtonInfo { buttonText = "Iron Monke", method =() => PlayerMovement.IronMonke(), isTogglable = true, toolTip = "ironman!" },
                 new ButtonInfo { buttonText = "Banana Car", method =() => PlayerMovement.BananaCar(), isTogglable = true, toolTip = "Car (joystick)!" },

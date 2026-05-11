@@ -183,6 +183,21 @@ namespace ShibaGTGenesis
             }
         }
 
+        public static void NoclipTriggerFly()
+        {
+            foreach (MeshCollider col in GameObject.FindObjectsOfType<MeshCollider>())
+            {
+                if (EasyInputs.GetTriggerButtonDown(EasyHand.RightHand))
+                {
+                    col.enabled = false;
+                    GorillaLocomotion.Player.Instance.transform.position += (GorillaLocomotion.Player.Instance.headCollider.transform.forward * Time.deltaTime) * 17f;
+                    GorillaLocomotion.Player.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                }
+                else 
+                    col.enabled = true;
+            }
+        }
+
         public static void Noclip()
         {
             foreach (MeshCollider col in GameObject.FindObjectsOfType<MeshCollider>())

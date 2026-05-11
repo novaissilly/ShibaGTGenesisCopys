@@ -839,7 +839,7 @@ namespace ShibaGTGenesis.Menu
 
         public static Vector3 status3 = new Vector3(-66.2834f, 12.2343f, -82.6418f);
         public static Camera mainCamera;
-        private TextMeshPro textMesh;
+        public TextMeshPro textMesh;
 
         public GameObject reference;
         public SphereCollider referencecollider;

@@ -11,6 +11,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements.UIR;
 
 
 namespace ShibaGTGenesis.Menu
@@ -326,7 +327,7 @@ namespace ShibaGTGenesis.Menu
             menubackground.transform.rotation = Quaternion.identity;
             menubackground.transform.localScale = new Vector3(0.1f, 1f, 1f) * 1f;
             menubackground.transform.position = new Vector3(0.05f, 0f, 0f) * 1f;
-            menubackground.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+            menubackground.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
             menubackground.GetComponent<Renderer>().material.color = menucolor;
 
             canvasObject = new GameObject();
@@ -401,7 +402,7 @@ namespace ShibaGTGenesis.Menu
             gameObject.transform.localPosition = new Vector3(0.56f, 0f, 0.6f - offset); // 0.56f, 0f, 0.6f - offset
             gameObject.AddComponent<ButtonCollider>().relatedText = method.buttonText;
             gameObject.name = "button";
-            gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+            gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
             gameObject.GetComponent<Renderer>().material.color = buttoncolor;
 
             Text text2 = null;
@@ -479,7 +480,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject.transform.localScale = new Vector3(0.045f, 0.25f, 0.064295f) * 1f;
                 gameObject.transform.localPosition = new Vector3(0.56f, 0.37f, 0.541f) * 1f;
                 gameObject.AddComponent<ButtonCollider>().relatedText = "PreviousPage";
-                gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
                 //MAKING NEXT
@@ -492,7 +493,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject3.transform.localScale = new Vector3(0.045f, 0.25f, 0.064295f) * 1f;
                 gameObject3.transform.localPosition = new Vector3(0.56f, -0.37f, 0.541f) * 1f;
                 gameObject3.AddComponent<ButtonCollider>().relatedText = "NextPage";
-                gameObject3.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject3.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject3.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
                 //MAKING DISCONNECT
@@ -505,7 +506,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject2.transform.localScale = new Vector3(0.045f, 0.4223921f, 0.1059686f) * 1f;
                 gameObject2.transform.localPosition = new Vector3(0.56f, 0f, 0.5616f) * 1f;
                 gameObject2.AddComponent<ButtonCollider>().relatedText = "DisconnectingButton";
-                gameObject2.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject2.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject2.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
                 //MAKING DISCONNECT TEXT
@@ -538,7 +539,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject.transform.localScale = new Vector3(0.045f, 0.25f, 0.8936298f) * 1f;
                 gameObject.transform.localPosition = new Vector3(0.56f, 0.657f, 0.0063f) * 1f;
                 gameObject.AddComponent<ButtonCollider>().relatedText = "PreviousPage";
-                gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
                 //MAKING NEXT
@@ -551,7 +552,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject3.transform.localScale = new Vector3(0.045f, 0.25f, 0.8936298f) * 1f;
                 gameObject3.transform.localPosition = new Vector3(0.56f, -0.657f, 0.0063f) * 1f;
                 gameObject3.AddComponent<ButtonCollider>().relatedText = "NextPage";
-                gameObject3.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject3.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject3.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
                 //MAKING DISCONNECT
@@ -564,7 +565,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject2.transform.localScale = new Vector3(0.045f, 0.4223921f, 0.1059686f) * 1f;
                 gameObject2.transform.localPosition = new Vector3(0.56f, 0f, 0.5616f) * 1f;
                 gameObject2.AddComponent<ButtonCollider>().relatedText = "DisconnectingButton";
-                gameObject2.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject2.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject2.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
                 //MAKING DISCONNECT TEXT
@@ -597,7 +598,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject2.transform.localScale = new Vector3(0.045f, 0.4223921f, 0.1059686f) * 1f;
                 gameObject2.transform.localPosition = new Vector3(0.56f, 0f, 0.5616f) * 1f;
                 gameObject2.AddComponent<ButtonCollider>().relatedText = "DisconnectingButton";
-                gameObject2.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject2.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject2.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
 
@@ -631,7 +632,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject.transform.localScale = new Vector3(0.045f, -0.2123475f, 0.1541571f) * 1f;
                 gameObject.transform.localPosition = new Vector3(0.56f, 0.392f, -0.423f) * 1f;
                 gameObject.AddComponent<ButtonCollider>().relatedText = "PreviousPage";
-                gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
                 //MAKING NEXT
@@ -644,7 +645,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject3.transform.localScale = new Vector3(0.045f, -0.2123475f, 0.1541571f) * 1f;
                 gameObject3.transform.localPosition = new Vector3(0.56f, -0.392f, -0.423f) * 1f;
                 gameObject3.AddComponent<ButtonCollider>().relatedText = "NextPage";
-                gameObject3.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject3.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject3.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
                 //MAKING DISCONNECT
@@ -657,7 +658,7 @@ namespace ShibaGTGenesis.Menu
                 gameObject2.transform.localScale = new Vector3(0.045f, 0.4223921f, 0.1059686f) * 1f;
                 gameObject2.transform.localPosition = new Vector3(0.56f, 0f, 0.5616f) * 1f;
                 gameObject2.AddComponent<ButtonCollider>().relatedText = "DisconnectingButton";
-                gameObject2.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
+                gameObject2.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color") ?? Shader.Find("Standard");
                 gameObject2.GetComponent<Renderer>().material.color = disconnectandpagebuttoncolor;
 
                 //MAKING DISCONNECT TEXT

@@ -116,86 +116,99 @@ namespace ShibaGTGenesis
 
         public static void BoxEsp()
         {
+            boxbool = true;
+
             foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
             {
-                if (vrrig !=  null && vrrig != GorillaTagger.Instance.myVRRig)
+                if (vrrig != null && vrrig != GorillaTagger.Instance.myVRRig)
                 {
                     try
                     {
-                        GameObject obe = null;
-                        try
-                        {
-                            obe = vrrig.gameObject.transform.Find("box").gameObject;
-                        }
-                        catch { }
-                        if (!obe)
+                        GameObject obe = vrrig.transform.Find("box")?.gameObject;
+
+                        if (obe == null)
                         {
                             GameObject gameObject = new GameObject("box");
-                            gameObject.transform.SetParent(vrrig.headMesh.transform);
-                            gameObject.transform.position = vrrig.gameObject.transform.position;
-                            GameObject gameObject2 = GameObject.CreatePrimitive((PrimitiveType)3);
-                            GameObject gameObject3 = GameObject.CreatePrimitive((PrimitiveType)3);
-                            GameObject gameObject4 = GameObject.CreatePrimitive((PrimitiveType)3);
-                            GameObject gameObject5 = GameObject.CreatePrimitive((PrimitiveType)3);
-                            UnityEngine.Object.Destroy(gameObject2.GetComponent<BoxCollider>());
-                            UnityEngine.Object.Destroy(gameObject5.GetComponent<BoxCollider>());
-                            UnityEngine.Object.Destroy(gameObject4.GetComponent<BoxCollider>());
-                            UnityEngine.Object.Destroy(gameObject3.GetComponent<BoxCollider>());
-                            gameObject2.transform.SetParent(gameObject.transform);
-                            gameObject2.transform.localPosition = new Vector3(0f, 0.49f, 0f);
-                            gameObject2.transform.localScale = new Vector3(1f, 0.04f, 0.04f);
-                            gameObject5.transform.SetParent(gameObject.transform);
-                            gameObject5.transform.localPosition = new Vector3(0f, -0.49f, 0f);
-                            gameObject5.transform.localScale = new Vector3(1f, 0.04f, 0.04f);
-                            gameObject4.transform.SetParent(gameObject.transform);
-                            gameObject4.transform.localPosition = new Vector3(-0.49f, 0f, 0f);
-                            gameObject4.transform.localScale = new Vector3(0.04f, 1f, 0.04f);
-                            gameObject3.transform.SetParent(gameObject.transform);
-                            gameObject3.transform.localPosition = new Vector3(0.49f, 0f, 0f);
-                            gameObject3.transform.localScale = new Vector3(0.04f, 1f, 0.04f);
-                            gameObject2.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            gameObject5.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            gameObject4.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            gameObject3.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            gameObject5.name = "rizz1";
-                            gameObject3.name = "rizz2";
-                            gameObject2.name = "rizz3";
-                            gameObject4.name = "rizz4";
+
                             gameObject.transform.SetParent(vrrig.transform);
-                            gameObject.transform.LookAt(gameObject.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+                            gameObject.transform.localPosition = Vector3.zero;
+
+                            GameObject gameObject2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            GameObject gameObject3 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            GameObject gameObject4 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            GameObject gameObject5 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                            GameObject.Destroy(gameObject2.GetComponent<BoxCollider>());
+                            GameObject.Destroy(gameObject3.GetComponent<BoxCollider>());
+                            GameObject.Destroy(gameObject4.GetComponent<BoxCollider>());
+                            GameObject.Destroy(gameObject5.GetComponent<BoxCollider>());
+
+                            gameObject2.transform.SetParent(gameObject.transform);
+                            gameObject3.transform.SetParent(gameObject.transform);
+                            gameObject4.transform.SetParent(gameObject.transform);
+                            gameObject5.transform.SetParent(gameObject.transform);
+
+                            gameObject2.transform.localPosition = new Vector3(0f, 0.49f, 0f);
+                            gameObject5.transform.localPosition = new Vector3(0f, -0.49f, 0f);
+                            gameObject4.transform.localPosition = new Vector3(-0.49f, 0f, 0f);
+                            gameObject3.transform.localPosition = new Vector3(0.49f, 0f, 0f);
+
+                            gameObject2.transform.localScale = new Vector3(1f, 0.04f, 0.04f);
+                            gameObject5.transform.localScale = new Vector3(1f, 0.04f, 0.04f);
+                            gameObject4.transform.localScale = new Vector3(0.04f, 1f, 0.04f);
+                            gameObject3.transform.localScale = new Vector3(0.04f, 1f, 0.04f);
+
+                            gameObject2.name = "rizz1";
+                            gameObject3.name = "rizz2";
+                            gameObject4.name = "rizz3";
+                            gameObject5.name = "rizz4";
+
+                            Renderer[] renderers =
+                            {
+                                gameObject2.GetComponent<Renderer>(),
+                                gameObject3.GetComponent<Renderer>(),
+                                gameObject4.GetComponent<Renderer>(),
+                                gameObject5.GetComponent<Renderer>()
+                            };
+
+                            foreach (Renderer renderer in renderers)
+                            {
+                                renderer.material.shader = Shader.Find("GUI/Text Shader");
+                                renderer.material.color = Color.blue;
+                            }
+
+                            obe = gameObject;
                         }
-                        else
-                        {
-                            obe.transform.LookAt(obe.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
-                        }
+
+                        obe.transform.LookAt(obe.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
                     }
-                    catch { }
-                    vrrig.transform.Find("box/rizz1").GetComponent<Renderer>().material.color = Color.blue;
-                    vrrig.transform.Find("box/rizz2").GetComponent<Renderer>().material.color = Color.blue;
-                    vrrig.transform.Find("box/rizz3").GetComponent<Renderer>().material.color = Color.blue;
-                    vrrig.transform.Find("box/rizz4").GetComponent<Renderer>().material.color = Color.blue;
+                    catch
+                    {
+
+                    }
                 }
             }
         }
+
         public static void OFFBoxEsp()
         {
-            if (boxbool)
+            if (!boxbool)
+                return;
+
+            foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
             {
-                foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                if (vrrig != null)
                 {
-                    if (vrrig != null && vrrig != GorillaTagger.Instance.myVRRig)
+                    Transform box = vrrig.transform.Find("box");
+
+                    if (box != null)
                     {
-                        GameObject obe = null;
-                        try
-                        {
-                            obe = vrrig.gameObject.transform.Find("box").gameObject;
-                        }
-                        catch { }
-                        GameObject.Destroy(obe);
+                        GameObject.Destroy(box.gameObject);
                     }
                 }
-                boxbool = false;
             }
+
+            boxbool = false;
         }
 
 

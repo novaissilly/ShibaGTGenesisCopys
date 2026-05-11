@@ -13,8 +13,7 @@ namespace ShibaGTGenesis
 
         public static void DisableSteamArms()
         {
-            if (Menu.Menu.Instance.GetButton("Really Long Arms").enabled == false)
-                GorillaLocomotion.Player.Instance.transform.localScale = new Vector3(1f, 1f, 1f);
+            GorillaLocomotion.Player.Instance.transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
         public static void HZ()

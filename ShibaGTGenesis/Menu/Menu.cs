@@ -731,7 +731,7 @@ namespace ShibaGTGenesis.Menu
                             }
                             else
                             {
-                                currentTooltip = v.toolTip ?? "";
+                                currentTooltip = v.buttonText + ": " + v.toolTip ?? "";
                                 tooltip.text = currentTooltip;
                             }
                         }
@@ -778,7 +778,7 @@ namespace ShibaGTGenesis.Menu
         public static int Theme = 0;
         public static int Speed = 0;
 
-        public string currentTooltip = ":3";
+        public string currentTooltip = "";
 
         public int buttonType = 0;
         public int pageNumber = 0;

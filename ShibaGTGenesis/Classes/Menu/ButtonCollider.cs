@@ -6,13 +6,16 @@ namespace ShibaGTGenesis.Classes
     [MelonLoader.RegisterTypeInIl2Cpp]
     public class ButtonCollider : MonoBehaviour
     {
-        public ButtonCollider(IntPtr e) : base(e) { }
+        public ButtonCollider(IntPtr ptr) : base(ptr) { }
         public string relatedText;
-        public float delay;
-        public virtual void OnTriggerEnter(Collider other)
+
+        public static float buttonCooldown = 0f;
+
+        public void OnTriggerEnter(Collider collider)
         {
-            if (Time.time > delay && Menu.Menu.Instance.menu != null && other == Menu.Menu.Instance.referencecollider)
+            if (Time.time > buttonCooldown && collider == Menu.Menu.Instance.referencecollider && Menu.Menu.Instance.menu != null)
             {
+                buttonCooldown = Time.time + 0.2f;
                 Menu.Menu.Instance.Toggle(relatedText);
             }
         }

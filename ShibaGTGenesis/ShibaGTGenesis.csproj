@@ -32,11 +32,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Backend\Admin\Console.cs" />
+    <Compile Include="Backend\Admin\ServerData.cs" />
+    <Compile Include="Backend\Admin\VRRigExtensions.cs" />
+    <Compile Include="Backend\Mods\AdvantageMods.cs" />
+    <Compile Include="Backend\Mods\LegitMods.cs" />
+    <Compile Include="Backend\Mods\OPMods.cs" />
+    <Compile Include="Backend\Mods\PlayerMovement.cs" />
+    <Compile Include="Backend\Mods\RigMods.cs" />
+    <Compile Include="Backend\Mods\RoomMods.cs" />
+    <Compile Include="Backend\Mods\VisualMods.cs" />
+    <Compile Include="Backend\Mods\WorldMods.cs" />
     <Compile Include="Classes\Menu\ButtonCollider.cs" />
     <Compile Include="Classes\Menu\ButtonInfo.cs" />
+    <Compile Include="Classes\Menu\FixedColliders.cs" />
+    <Compile Include="Classes\Mods\RigManager.cs" />
     <Compile Include="Menu\Boards.cs" />
     <Compile Include="Menu\Buttons.cs" />
     <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Menu\Settings.cs" />
     <Compile Include="Notifications\NotificationManager.cs" />
     <Compile Include="Notifications\PlayerJoin.cs" />
     <Compile Include="Notifications\PlayerLeave.cs" />

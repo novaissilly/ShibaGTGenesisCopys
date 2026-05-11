@@ -21,8 +21,8 @@ namespace ShibaGTGenesis
             MainCamera = GameObject.Find("Main Camera");
             HUDObj = new GameObject();
             HUDObj2 = new GameObject();
-            HUDObj2.name = "NOTIFICATIONLIB_HUD_OBJ";
-            HUDObj.name = "NOTIFICATIONLIB_HUD_OBJ";
+            HUDObj2.name = "SHIBA_NOTIFICATIONLIB";
+            HUDObj.name = "SHIBA_NOTIFICATIONLIB";
             HUDObj.AddComponent<Canvas>();
             HUDObj.AddComponent<CanvasScaler>();
             HUDObj.AddComponent<GraphicRaycaster>();
@@ -46,14 +46,14 @@ namespace ShibaGTGenesis
                 }
             }.AddComponent<Text>();
             Testtext.text = "";
-            Testtext.fontSize = 30;
+            Testtext.fontSize = 5;
             Testtext.font = GameObject.Find("COC Text").GetComponent<Text>().font;
-            Testtext.rectTransform.sizeDelta = new Vector2(450f, 210f);
-            Testtext.alignment = TextAnchor.LowerLeft;
-            Testtext.rectTransform.localScale = new Vector3(0.00333333333f, 0.00333333333f, 0.33333333f);
-            Testtext.rectTransform.localPosition = new Vector3(-1f, -1f, -0.5f);
+            Testtext.rectTransform.sizeDelta = new Vector2(260f, 70f);
+            Testtext.alignment = TextAnchor.UpperLeft;
+            Testtext.rectTransform.localScale = new Vector3(0.01f, 0.01f, 1f);
+            Testtext.rectTransform.localPosition = new Vector3(-1.5f, -0.9f, -0.6f);
             Testtext.material = AlertText;
-            NotificationManager.NotifiText = Testtext;
+            NotifiText = Testtext;
         }
 
         public virtual void FixedUpdate()

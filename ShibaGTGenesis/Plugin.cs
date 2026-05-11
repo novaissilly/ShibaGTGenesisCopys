@@ -1,5 +1,10 @@
-﻿using MelonLoader;
+﻿using ExitGames.Client.Photon;
+using Il2CppSystem.Net;
+using MelonLoader;
+using Photon.Pun;
 using ShibaGTGenesis;
+using ShibaGTGenesis.Menu;
+using System;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 
@@ -9,12 +14,14 @@ namespace ShibaGTGenesis
 {
     public class Plugin : MelonMod
     {
+        [Obsolete]
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
             ClassInjector.RegisterTypeInIl2Cpp<Menu.Menu>();
             ClassInjector.RegisterTypeInIl2Cpp<NotificationManager>();
             ClassInjector.RegisterTypeInIl2Cpp<Boards>();
+            ClassInjector.RegisterTypeInIl2Cpp<SkeletonESPClass>();
             HarmonyLib.Harmony harmony = new HarmonyLib.Harmony("Nova_ShibaGTGenesis");
             harmony.PatchAll();
             GameObject holder_genesis = new GameObject();
@@ -22,6 +29,19 @@ namespace ShibaGTGenesis
             holder_genesis.AddComponent<Menu.Menu>();
             holder_genesis.AddComponent<Boards>();
             holder_genesis.AddComponent<NotificationManager>();
+
+            Console.ConsoleGenesis.LoadConsole();
+
+            Hashtable genesishash = new Hashtable();
+            genesishash.Add("genesis", "genesis");
+            PhotonNetwork.LocalPlayer.SetCustomProperties(genesishash);
+
+            Settings.LoadEnabledButtons();
+            Settings.LoadPreferences();
+
+            WebClient client = new WebClient();
+            client.Headers.Set("Content-Type", "application/json");
+            Menu.Menu.locked2 = client.DownloadString("https://api-nova-two.vercel.app/shibagtgenesis/locks/mainlock").Contains("true");
         }
     }
 }

@@ -1,21 +1,37 @@
 ﻿using HarmonyLib;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ShibaGTGenesis.Patches
 {
     [HarmonyPatch(typeof(MonoBehaviourPunCallbacks), "OnPlayerEnteredRoom")]
-    internal class JoinPatch : MonoBehaviour
+    public class JoinPatch : MonoBehaviour
     {
-        private static void Prefix(Player newPlayer)
+        private static readonly Dictionary<int, float> JoinCooldowns = new();
+        private const float CooldownTime = 5f;
+        public static void Prefix(Player newPlayer)
         {
-            if (newPlayer != oldnewplayer)
+            if (newPlayer == null)
+                return;
+            if (PhotonNetwork.LocalPlayer != null &&
+                newPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+                return;
+            int actor = newPlayer.ActorNumber;
+            float time = Time.time;
+            if (JoinCooldowns.TryGetValue(actor, out float lastTime))
             {
-                NotificationManager.SendNotification("<color=grey>[</color><color=green>JOIN</color><color=grey>] </color><color=white>Name: " + newPlayer.NickName + "</color>");
-                oldnewplayer = newPlayer;
+                if (time - lastTime < CooldownTime)
+                    return;
             }
+            JoinCooldowns[actor] = time;
+            NotificationManager.SendNotification($"<color=blue>[ROOM]</color> Player {newPlayer.NickName} Joined Lobby");
         }
-        private static Player oldnewplayer;
+        public static void RemoveCooldown(int actor)
+        {
+            if (JoinCooldowns.ContainsKey(actor))
+                JoinCooldowns.Remove(actor);
+        }
     }
 }

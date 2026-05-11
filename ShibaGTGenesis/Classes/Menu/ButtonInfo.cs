@@ -15,5 +15,7 @@ namespace ShibaGTGenesis.Classes
 
         public bool enabled;
         public bool isTogglable = true;
+
+        public bool sendnoti = false;
     }
 }

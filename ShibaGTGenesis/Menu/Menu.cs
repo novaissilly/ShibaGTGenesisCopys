@@ -108,6 +108,24 @@ namespace ShibaGTGenesis.Menu
             }
             catch { }
 
+            if (triggerpages)
+            {
+                if (EasyInputs.GetTriggerButtonDown(EasyHand.RightHand) && !triggeroncepagetoggle)
+                {
+                    Toggle("NextPage");
+                    triggeroncepagetoggle = true;
+                }
+                if (EasyInputs.GetTriggerButtonDown(EasyHand.LeftHand) && !triggeroncepagetoggle)
+                {
+                    Toggle("PreviousPage");
+                    triggeroncepagetoggle = true;
+                }
+                if (!EasyInputs.GetTriggerButtonDown(EasyHand.LeftHand) && !EasyInputs.GetTriggerButtonDown(EasyHand.RightHand && triggeroncepagetoggle)
+                {
+                    triggeroncepagetoggle = false;
+                }
+            }
+
             DestroyPointer();
 
             if (PhotonNetwork.InRoom)
@@ -777,6 +795,9 @@ namespace ShibaGTGenesis.Menu
         public static int MenuLayout = 0;
         public static int Theme = 0;
         public static int Speed = 0;
+
+        public static bool triggerpages = false;
+        public static bool triggeroncepagetoggle = false;
 
         public string currentTooltip = "";
 

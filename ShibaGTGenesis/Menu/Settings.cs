@@ -33,21 +33,25 @@ namespace ShibaGTGenesis.Menu
                     case 0:
                         if (button != null)
                             button.buttonText = "Change Menu Layout: ShibaGT";
+                        Menu.triggerpages = false;
                         break;
 
                     case 1:
                         if (button != null)
                             button.buttonText = "Change Menu Layout: Side";
+                        Menu.triggerpages = false;
                         break;
 
                     case 2:
                         if (button != null)
                             button.buttonText = "Change Menu Layout: Trigger";
+                        Menu.triggerpages = true;
                         break;
 
                     case 3:
                         if (button != null)
                             button.buttonText = "Change Menu Layout: Bottom";
+                        Menu.triggerpages = false;
                         break;
                 }
 

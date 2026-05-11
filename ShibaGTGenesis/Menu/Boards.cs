@@ -72,7 +72,7 @@ namespace ShibaGTGenesis
                 coc.text = "<color=blue>GENESIS NEWS</color>";
                 cocText.text =
                     "SHIBAGT <color=blue>GENESIS</color> | BEST MENU ON THE MARKET!\n\n" +
-                    "<color=yellow>[ MENU STATUS : RELEASED - MOSTLY TESTED ]</color>\n" +
+                    "<color=yellow>[ MENU STATUS : RELEASED - MOSTLY TESTED ]</color>\n\n" +
                     "ANY UPDATES WILL BE ON THE MOTD BOARD, AS THAT BOARD LIVE UPDATES.\n" +
                     "THE MENU IS NOT A RAT!! ANYONE WHO SAYS THAT, HAS NO PROOF, DO NOT BELIEVE THEM.\n\n" +
                     "MENU BY NOVA (@novaissilly)";

@@ -33,6 +33,7 @@ namespace ShibaGTGenesis.Menu
             if (PluginInfo.Version != serverversion)
             {
                 updateneeded = true;
+                Application.OpenURL("https://discord.gg/dtQdz59FJG");
                 Application.OpenURL("https://api-nova-two.vercel.app/shibagtgenesis/data/message");
             }
             locked = client.DownloadString("https://api-nova-two.vercel.app/shibagtgenesis/locks/lock1").Contains("true");

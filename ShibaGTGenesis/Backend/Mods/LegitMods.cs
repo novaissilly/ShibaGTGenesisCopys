@@ -53,18 +53,18 @@ namespace ShibaGTGenesis
         }
 
 
+        private static GameObject leftController;
+        private static GameObject rightController;
         public static void FakeOculus()
         {
-            if (EasyInputs.GetSecondaryButtonDown(EasyHand.RightHand))
-            {
-                GameObject.Find("LeftHand Controller").SetActive(false);
-                GameObject.Find("RightHand Controller").SetActive(false);
-            }
-            else
-            {
-                GameObject.Find("LeftHand Controller").SetActive(true);
-                GameObject.Find("RightHand Controller").SetActive(true);
-            }
+            if (leftController == null)
+                leftController = GameObject.Find("LeftHand Controller");
+            if (rightController == null)
+                rightController = GameObject.Find("RightHand Controller");
+            if (leftController != null)
+                leftController.SetActive(!EasyInputs.GetSecondaryButtonDown(EasyHand.RightHand));
+            if (rightController != null)
+                rightController.SetActive(!EasyInputs.GetSecondaryButtonDown(EasyHand.RightHand));
         }
 
 

@@ -33,7 +33,7 @@ namespace ShibaGTGenesis
             motd = GameObject.Find("motd").GetComponent<Text>();
             motdRenderer = GameObject.Find("wallmonitorlong").GetComponent<Renderer>();
             cocRenderer = GameObject.Find("code of conduct/board").GetComponent<Renderer>();
-            boardMat = new Material(Shader.Find("Unlit/Color"));
+            boardMat = new Material(Shader.Find("Unlit/Color") ?? Shader.Find("Standard"));
             boardMat.color = Color.black;
             Material[] motdMats = motdRenderer.materials;
             if (motdMats.Length > 1)

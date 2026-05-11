@@ -75,7 +75,7 @@ namespace ShibaGTGenesis.Menu
                 if (!loading)
                 {
                     Menu.Theme++;
-                    if (Menu.Theme > 1)
+                    if (Menu.Theme > 2)
                         Menu.Theme = 0;
                 }
 
@@ -94,11 +94,20 @@ namespace ShibaGTGenesis.Menu
                     case 1:
                         if (button != null)
                             button.buttonText = "Change Menu Theme: Genesis";
-                            Menu.Instance.buttoncolor = new Color32(0, 0, 235, 255);
-                            Menu.Instance.disconnectandpagebuttoncolor = new Color32(0, 0, 235, 255);
-                            Menu.Instance.menucolor = new Color32(0, 0, 210, 255);
+                            Menu.Instance.buttoncolor = new Color32(134, 0, 134, 255);
+                            Menu.Instance.disconnectandpagebuttoncolor = new Color32(164, 0, 164, 255);
+                            Menu.Instance.menucolor = new Color32(164, 0, 164, 255);
                             Menu.Instance.textoffcolor = Color.black;
                             Menu.Instance.textoncolor = Color.white;
+                        break;
+                    case 2:
+                        if (button != null)
+                            button.buttonText = "Change Menu Theme: Bubblegum";
+                        Menu.Instance.buttoncolor = new Color32(0, 0, 235, 255);
+                        Menu.Instance.disconnectandpagebuttoncolor = new Color32(0, 0, 235, 255);
+                        Menu.Instance.menucolor = new Color32(0, 0, 210, 255);
+                        Menu.Instance.textoffcolor = Color.black;
+                        Menu.Instance.textoncolor = Color.white;
                         break;
                 }
                 if (button != null)

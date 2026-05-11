@@ -138,28 +138,50 @@ namespace ShibaGTGenesis
         }
 
         private static GameObject cachedTriggers;
+        private static GameObject GetNetworkingTriggers()
+        {
+            if (cachedTriggers == null)
+            {
+                cachedTriggers = GameObject.Find("NetworkTriggers");
+            }
+            return cachedTriggers;
+        }
+
         public static void DisableNetworkTriggers()
         {
-            cachedTriggers = GameObject.Find("Networking Trigger");
-            cachedTriggers.SetActive(false);
+            GameObject triggers = GetNetworkingTriggers();
+            if (triggers != null)
+            {
+                triggers.SetActive(false);
+            }
         }
+
         public static void EnableNetworkTriggers()
         {
-            cachedTriggers.SetActive(true);
+            GameObject triggers = GetNetworkingTriggers();
+            if (triggers != null)
+            {
+                triggers.SetActive(true);
+            }
         }
 
         public static void VisibleTrigs()
         {
-            foreach (Renderer g in GameObject.Find("Networking Trigger").GetComponentsInChildren<Renderer>())
+            GameObject triggers = GetNetworkingTriggers();
+            if (triggers == null)
+                return;
+            foreach (Renderer g in triggers.GetComponentsInChildren<Renderer>(true))
             {
                 g.material.shader = Shader.Find("Standard");
                 g.enabled = true;
             }
         }
-
         public static void NonVisTrigs()
         {
-            foreach (Renderer g in GameObject.Find("Networking Trigger").GetComponentsInChildren<Renderer>())
+            GameObject triggers = GetNetworkingTriggers();
+            if (triggers == null)
+                return;
+            foreach (Renderer g in triggers.GetComponentsInChildren<Renderer>(true))
             {
                 g.enabled = false;
             }

@@ -14,6 +14,11 @@ namespace ShibaGTGenesis
             Menu.Menu.Instance.controller.AttemptToJoinSpecificRoom("GENESIS");
         }
 
+        public static void JoinRandomRoom()
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
+
         public static void CreatePublicRoom()
         {
             Hashtable dictionaryEntries = new Hashtable();

@@ -134,8 +134,6 @@ namespace ShibaGTGenesis.Menu
 
                 if (Menu.GetGunInput(true))
                 {
-                    Menu.mainCamera = null;
-                    GameObject.Destroy(GameObject.Find("GenesisStatus"));
                     Menu.status3 = Pointer.transform.position;
                 }
             }

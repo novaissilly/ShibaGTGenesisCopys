@@ -273,6 +273,51 @@ namespace ShibaGTGenesis
             }
         }
 
+        public static void FollowPlayerGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+
+                if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = false;
+                    Vector3 direction = (GorillaTagger.Instance.myVRRig.transform.position - Menu.Menu.lockTarget.headConstraint.transform.position).normalized;
+                    Vector3 newPosition = Menu.Menu.lockTarget.headConstraint.transform.position + direction * 2f;
+                    GorillaTagger.Instance.myVRRig.transform.LookAt(Menu.Menu.lockTarget.headConstraint.transform.position);
+                    GorillaTagger.Instance.myVRRig.transform.position = newPosition;
+                    System.Random random = new System.Random();
+                    if (PhotonNetwork.InRoom)
+                    {
+                        GorillaTagger.Instance.myVRRig.head.rigTarget.eulerAngles = new Vector3(random.Next(0, 360), random.Next(0, 360), random.Next(0, 360));
+                        GorillaTagger.Instance.myVRRig.leftHand.rigTarget.eulerAngles = new Vector3(random.Next(0, 360), random.Next(0, 360), random.Next(0, 360));
+                        GorillaTagger.Instance.myVRRig.rightHand.rigTarget.eulerAngles = new Vector3(random.Next(0, 360), random.Next(0, 360), random.Next(0, 360));
+                    }
+                }
+
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        Menu.Menu.lockTarget = rig;
+                        Menu.Menu.gunLocked = true;
+                    }
+                }
+                else
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = true;
+                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
+            }
+        }
+
         public static void HoldRig()
         {
             if (EasyInputs.GetGripButtonDown(EasyHand.LeftHand))

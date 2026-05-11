@@ -78,6 +78,44 @@ namespace ShibaGTGenesis
             }
         }
 
+        public static void SlingshotFly()
+        {
+            if (EasyInputs.GetGripButtonDown(EasyHand.RightHand))
+            {
+                Rigidbody rigid = GorillaLocomotion.Player.Instance.gameObject.GetComponent<Rigidbody>();
+                if (rigid != null)
+                {
+                    rigid.AddForce(GorillaLocomotion.Player.Instance.headCollider.transform.forward * 25f, ForceMode.Acceleration);
+                }
+            }
+        }
+
+        public static void FastSlingshotFly()
+        {
+            if (EasyInputs.GetGripButtonDown(EasyHand.RightHand))
+            {
+                Rigidbody rigid = GorillaLocomotion.Player.Instance.gameObject.GetComponent<Rigidbody>();
+                if (rigid != null)
+                {
+                    rigid.AddForce(GorillaLocomotion.Player.Instance.headCollider.transform.forward * 50f, ForceMode.Acceleration);
+                }
+            }
+        }
+
+        public static void SirenTalk()
+        {
+            if (EasyInputs.GetTriggerButtonDown(EasyHand.LeftHand))
+            {
+                GorillaTagger.Instance.myVRRig.enabled = false;
+                GorillaTagger.Instance.myVRRig.transform.position = new Vector3(-69.6924f, 2.648f, -70.341f);
+            }
+            else
+            {
+                GorillaTagger.Instance.myVRRig.enabled = true;
+            }
+        }
+
+
         public static void TeleportRandom()
         {
             MeshCollider[] meshColliders = Resources.FindObjectsOfTypeAll<MeshCollider>();

@@ -144,7 +144,6 @@ namespace ShibaGTGenesis
             }
         }
 
-
         public static void HandSpaz()
         {
             System.Random random = new System.Random();
@@ -155,13 +154,11 @@ namespace ShibaGTGenesis
             }
         }
 
-
         public static void OffHeadRoll()
         {
             if (Roll)
             {
                 Roll = false;
-
                 Vector3 rot = GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset;
                 rot.x = 0f;
                 GorillaTagger.Instance.offlineVRRig.head.trackingRotationOffset = rot;
@@ -216,9 +213,12 @@ namespace ShibaGTGenesis
                 {
                     GorillaTagger.Instance.myVRRig.enabled = true;
                     lucyspeed = 0.1f;
-                    Menu.Menu.lockTarget = null;
-                    Menu.Menu.gunLocked = false;
                 }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
             }
         }
 

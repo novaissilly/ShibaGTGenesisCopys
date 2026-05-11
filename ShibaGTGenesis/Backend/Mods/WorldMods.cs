@@ -1,8 +1,6 @@
 ﻿using easyInputs;
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
-using UnityEngine.XR.Interaction.Toolkit;
 
 namespace ShibaGTGenesis
 {

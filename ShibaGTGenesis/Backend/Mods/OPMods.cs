@@ -1,5 +1,6 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -67,11 +68,11 @@ namespace ShibaGTGenesis
                         Menu.Menu.gunLocked = true;
                     }
                 }
-                else
-                {
-                    Menu.Menu.lockTarget = null;
-                    Menu.Menu.gunLocked = false;
-                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
             }
         }
 
@@ -141,11 +142,11 @@ namespace ShibaGTGenesis
                         Menu.Menu.gunLocked = true;
                     }
                 }
-                else
-                {
-                    Menu.Menu.lockTarget = null;
-                    Menu.Menu.gunLocked = false;
-                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
             }
         }
 
@@ -207,28 +208,17 @@ namespace ShibaGTGenesis
                 GameObject Pointer = GunData.Pointer;
                 RaycastHit Ray = GunData.Ray;
 
-                if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
-                {
-                    for (int i = 0; i < 35; i++)
-                    {
-                        PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { Menu.Menu.lockTarget.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
-                        PhotonNetwork.RaiseEvent(3, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { Menu.Menu.lockTarget.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
-                    }
-                }
-
                 if (Menu.Menu.GetGunInput(true))
                 {
                     VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
                     if (rig != null && rig != GorillaTagger.Instance.myVRRig)
                     {
-                        Menu.Menu.lockTarget = rig;
-                        Menu.Menu.gunLocked = true;
+                        for (int i = 0; i < 35; i++)
+                        {
+                            PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
+                            PhotonNetwork.RaiseEvent(3, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
+                        }
                     }
-                }
-                else
-                {
-                    Menu.Menu.lockTarget = null;
-                    Menu.Menu.gunLocked = false;
                 }
             }
         }
@@ -390,14 +380,12 @@ namespace ShibaGTGenesis
 
         public static void CrashAll()
         {
-            foreach (Photon.Realtime.Player plr in PhotonNetwork.PlayerListOthers)
+            for (int i = 0; i < 150; i++)
             {
-                for (int i = 0; i < 35; i++)
-                {
-                    PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { Receivers = Photon.Realtime.ReceiverGroup.Others }, SendOptions.SendReliable);
-                    PhotonNetwork.RaiseEvent(3, null, new Photon.Realtime.RaiseEventOptions { Receivers = Photon.Realtime.ReceiverGroup.Others }, SendOptions.SendReliable);
-                }
+                PhotonNetwork.RaiseEvent(2, null, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
+                PhotonNetwork.RaiseEvent(3, null, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
             }
+            PhotonNetwork.SendAllOutgoingCommands();
         }
 
         public static void LagAll()
@@ -440,11 +428,11 @@ namespace ShibaGTGenesis
                         Menu.Menu.gunLocked = true;
                     }
                 }
-                else
-                {
-                    Menu.Menu.lockTarget = null;
-                    Menu.Menu.gunLocked = false;
-                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
             }
         }
     }

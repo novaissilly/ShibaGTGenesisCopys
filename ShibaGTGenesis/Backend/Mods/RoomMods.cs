@@ -58,6 +58,18 @@ namespace ShibaGTGenesis
             PhotonNetwork.JoinRandomRoom();
         }
 
+        public static void Rejoin()
+        {
+            Menu.Menu.Instance.Controller().OnDisconnected(DisconnectCause.DisconnectByClientLogic);
+            Menu.Menu.Instance.rejoinCode = PhotonNetwork.CurrentRoom.Name;
+            PhotonNetwork.Disconnect();
+        }
+
+        public static void CancelRejoin()
+        {
+            Menu.Menu.Instance.rejoinCode = null;
+        }
+
         public static void DisableNetworkTriggers()
         {
             GameObject.Find("NetworkTriggers").SetActive(true);

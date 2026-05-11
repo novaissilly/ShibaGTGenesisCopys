@@ -67,6 +67,8 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Create Public Room", method =() => RoomMods.CreatePublicRoom(), isTogglable = false, toolTip = "Create Public!" },
                 new ButtonInfo { buttonText = "Rejoin Last Joined Lobby", method =() => RoomMods.RejoinLastRoom(), isTogglable = false, toolTip = "Rejoin!" },
                 new ButtonInfo { buttonText = "Serverhop", method =() => RoomMods.Serverhop(), isTogglable = false, toolTip = "Serverhop!" },
+                new ButtonInfo { buttonText = "Reconnect", method =() => RoomMods.Rejoin(), isTogglable = false, toolTip = "rejoin!" },
+                new ButtonInfo { buttonText = "Cancel Reconnect", method =() => RoomMods.CancelRejoin(), isTogglable = false, toolTip = "rejoin!" },
                 new ButtonInfo { buttonText = "Disable Network Triggers [cs]", method =() => RoomMods.DisableNetworkTriggers(), disableMethod =() => RoomMods.EnableNetworkTriggers(), isTogglable = true, toolTip = "Go into other maps in pubs!" },
                 new ButtonInfo { buttonText = "AntiReport", method =() => RoomMods.AntiReport(), isTogglable = true, toolTip = "Antireport!" },
                 new ButtonInfo { buttonText = "Hide Name On Leaderboard", method =() => RoomMods.HideNameOnLeaderboard(), isTogglable = false, toolTip = "Hide!" },

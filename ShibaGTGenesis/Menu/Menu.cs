@@ -780,6 +780,7 @@ namespace ShibaGTGenesis.Menu
         }
 
         public string Lastroom;
+        public string rejoinCode;
 
         public GameObject menu;
         public GameObject menubackground;

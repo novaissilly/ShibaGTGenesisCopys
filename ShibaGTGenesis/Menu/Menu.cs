@@ -49,7 +49,7 @@ namespace ShibaGTGenesis.Menu
                 {
                     GameObject.Destroy(obj);
                 }
-                GameObject.Destroy(controller.gameObject);
+                GameObject.Destroy(Controller().gameObject);
             }
 
             bool open = rightHanded ? EasyInputs.GetSecondaryButtonDown(EasyHand.RightHand) : EasyInputs.GetSecondaryButtonDown(EasyHand.LeftHand);
@@ -773,12 +773,9 @@ namespace ShibaGTGenesis.Menu
 
         public static Menu Instance;
 
-        public PhotonNetworkController controller
+        public PhotonNetworkController Controller()
         {
-            get
-            {
-                return GameObject.FindObjectsOfType<PhotonNetworkController>().FirstOrDefault();
-            }
+            return GameObject.FindObjectOfType<PhotonNetworkController>();
         }
 
         public string Lastroom;

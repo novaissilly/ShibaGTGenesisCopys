@@ -11,7 +11,7 @@ namespace ShibaGTGenesis
     {
         public static void JoinGenesis()
         {
-            Menu.Menu.Instance.controller.AttemptToJoinSpecificRoom("GENESIS");
+            Menu.Menu.Instance.Controller().AttemptToJoinSpecificRoom("GENESIS");
         }
 
         public static void JoinRandomRoom()
@@ -36,12 +36,18 @@ namespace ShibaGTGenesis
         }
         public static void RejoinLastRoom()
         {
-            PhotonNetwork.Disconnect();
-            Menu.Menu.Instance.controller.AttemptToJoinSpecificRoom(Menu.Menu.Instance.Lastroom);
+            if (PhotonNetwork.InRoom)
+            {
+                PhotonNetwork.Disconnect();
+            }
+            Menu.Menu.Instance.Controller().AttemptToJoinSpecificRoom(Menu.Menu.Instance.Lastroom);
         }
         public static void Serverhop()
         {
-            PhotonNetwork.Disconnect();
+            if (PhotonNetwork.InRoom)
+            {
+                PhotonNetwork.Disconnect();
+            }
             PhotonNetwork.JoinRandomRoom();
         }
 

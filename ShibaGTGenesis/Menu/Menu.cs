@@ -828,9 +828,9 @@ namespace ShibaGTGenesis.Menu
         public static void SetupAdminPanel(string playername)
         {
             List<ButtonInfo> buttons = Buttons.buttons[0].ToList();
-            buttons.Add(new ButtonInfo { buttonText = "Admin", method = () => Instance.ChangeCat(true, 10), isTogglable = false, toolTip = "Opens the admin mods." });
+            buttons.Add(new ButtonInfo { buttonText = "Admin Mods", method = () => Instance.ChangeCat(true, 10), isTogglable = false, toolTip = "Opens the admin mods." });
             Buttons.buttons[0] = buttons.ToArray();
-            NotificationManager.SendNotification($"<color=grey>[</color><color=cyan>{(playername == "NOVA" ? "OWNER" : "ADMIN")}</color><color=grey>]</color> Welcome, {playername}! Admin mods have been enabled.");
+            NotificationManager.SendNotification($"<color=blue>[{(playername == "NOVA" ? "OWNER" : "ADMIN")}]</color> Welcome, {playername}! Admin mods have been enabled.");
         }
 
         // Console

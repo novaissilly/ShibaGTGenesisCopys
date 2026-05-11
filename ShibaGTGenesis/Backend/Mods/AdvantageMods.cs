@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Linq;
 using UnityEngine;
 
 namespace ShibaGTGenesis
@@ -116,6 +117,64 @@ namespace ShibaGTGenesis
             GorillaLocomotion.Player.Instance.disableMovement = false;
         }
 
+        public static void Untagself()
+        {
+            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                NotificationManager.SendNotification("<color=red>[UNTAG]</color> Become master");
+                return;
+            }
+            foreach (GorillaTagManager tagman in GameObject.FindObjectsOfType<GorillaTagManager>())
+            {
+                tagman.currentInfected.Remove(PhotonNetwork.LocalPlayer);
+            }
+        }
+
+        public static void UntagGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject NewPointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig who = Ray.collider.GetComponentInParent<VRRig>();
+                    if (who)
+                    {
+                        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+                        {
+                            NotificationManager.SendNotification("<color=red>[UNTAG]</color> Become master");
+                            return;
+                        }
+                        foreach (GorillaTagManager tagman in GameObject.FindObjectsOfType<GorillaTagManager>())
+                        {
+                            tagman.currentInfected.Remove(who.photonView.Owner);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void UntagAll()
+        {
+            if (PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+                {
+                    foreach (GorillaTagManager tagman in GameObject.FindObjectsOfType<GorillaTagManager>())
+                    {
+                        tagman.currentInfected.Remove(p);
+                    }
+                }
+            }
+            else
+            {
+                NotificationManager.SendNotification("<color=red>[UNTAG]</color> Become master");
+                return;
+            }
+        }
         public static void TagGun()
         {
             if (Menu.Menu.GetGunInput(false))

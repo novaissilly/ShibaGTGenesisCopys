@@ -4,6 +4,7 @@ using Photon.Pun;
 using ShibaGTGenesis.Classes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace ShibaGTGenesis
 {
@@ -374,7 +375,84 @@ namespace ShibaGTGenesis
                 {
                     GorillaTagger.Instance.myVRRig.enabled = false;
                     GorillaTagger.Instance.myVRRig.transform.position = Menu.Menu.lockTarget.transform.position + new Vector3(UnityEngine.Random.Range(-2f, 3f), UnityEngine.Random.Range(0f, 2f), UnityEngine.Random.Range(-2f, 3f));
+                }
 
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        Menu.Menu.lockTarget = rig;
+                        Menu.Menu.gunLocked = true;
+                    }
+                }
+                else
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = true;
+                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
+            }
+        }
+
+        public static void JumpscareGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+
+                if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = false;
+                    GorillaTagger.Instance.myVRRig.transform.position += GorillaTagger.Instance.myVRRig.transform.forward * 20f * Time.deltaTime;
+                    GorillaTagger.Instance.myVRRig.transform.LookAt(Menu.Menu.lockTarget.transform);
+                }
+
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        Menu.Menu.lockTarget = rig;
+                        Menu.Menu.gunLocked = true;
+                    }
+                }
+                else
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = true;
+                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
+            }
+        }
+
+        private static float angle;
+        private static float orbitSpeed = 8f;
+        public static void HaloGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+
+                if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = false;
+                    angle += orbitSpeed * Time.deltaTime;
+                    float x = Menu.Menu.lockTarget.transform.position.x + 1f * Mathf.Cos(angle);
+                    float y = Menu.Menu.lockTarget.transform.position.y + 1f;
+                    float z = Menu.Menu.lockTarget.transform.position.z + 1f * Mathf.Sin(angle);
+                    Vector3 funny = new Vector3(x, y, z);
+                    GorillaTagger.Instance.myVRRig.transform.position = funny;
                 }
 
                 if (Menu.Menu.GetGunInput(true))

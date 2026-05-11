@@ -111,6 +111,11 @@ namespace ShibaGTGenesis
             }
         }
 
+        public static void NoTagFreeze()
+        {
+            GorillaLocomotion.Player.Instance.disableMovement = false;
+        }
+
         public static void TagGun()
         {
             if (Menu.Menu.GetGunInput(false))

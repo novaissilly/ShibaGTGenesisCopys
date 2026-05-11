@@ -149,6 +149,7 @@ namespace ShibaGTGenesis.Menu
 
             new ButtonInfo[] { // Advantage Mods | 9
                 new ButtonInfo { buttonText = "Advantage Mods", method =() => Instance.ChangeCat(false), isTogglable = false, toolTip = "Go back!" },
+                new ButtonInfo { buttonText = "No Tag Freeze", method =() => AdvantageMods.NoTagFreeze(), isTogglable = true, toolTip = "Walky walk!" },
                 new ButtonInfo { buttonText = "Tag Gun", method =() => AdvantageMods.TagGun(), isTogglable = true, toolTip = "Tag Gun!" },
                 new ButtonInfo { buttonText = "Tag All", method =() => AdvantageMods.TagAll(), isTogglable = true, toolTip = "Tag All!" },
                 new ButtonInfo { buttonText = "Tag Aura", method =() => AdvantageMods.TagAura(), isTogglable = true, toolTip = "Tag Aura!" },

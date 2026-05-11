@@ -3,6 +3,7 @@ using ExitGames.Client.Photon;
 using GorillaNetworking;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Linq;
 using UnityEngine;
 
 namespace ShibaGTGenesis
@@ -58,6 +59,72 @@ namespace ShibaGTGenesis
             PhotonNetwork.JoinRandomRoom();
         }
 
+        public static void MuteGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        rig.muted = true;
+                        GameObject.FindObjectsOfType<GorillaPlayerScoreboardLine>().Where(line => line.linePlayer.UserId == rig.photonView.Owner.UserId).FirstOrDefault().PressButton(true, GorillaPlayerLineButton.ButtonType.Mute);
+                        GameObject.FindObjectsOfType<GorillaPlayerScoreboardLine>().Where(line => line.linePlayer.UserId == rig.photonView.Owner.UserId).FirstOrDefault().muteButton.enabled = true;
+                    }
+                }
+            }
+        }
+
+        public static void MuteAll()
+        {
+            foreach (VRRig rig in GorillaParent.instance.vrrigs)
+            {
+                if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                {
+                    rig.muted = true;
+                    GameObject.FindObjectsOfType<GorillaPlayerScoreboardLine>().Where(line => line.linePlayer.UserId == rig.photonView.Owner.UserId).FirstOrDefault().PressButton(true, GorillaPlayerLineButton.ButtonType.Mute);
+                    GameObject.FindObjectsOfType<GorillaPlayerScoreboardLine>().Where(line => line.linePlayer.UserId == rig.photonView.Owner.UserId).FirstOrDefault().muteButton.enabled = true;
+                }
+            }
+        }
+
+        public static void UnmuteGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        rig.muted = false;
+                        GameObject.FindObjectsOfType<GorillaPlayerScoreboardLine>().Where(line => line.linePlayer.UserId == rig.photonView.Owner.UserId).FirstOrDefault().PressButton(false, GorillaPlayerLineButton.ButtonType.Mute);
+                        GameObject.FindObjectsOfType<GorillaPlayerScoreboardLine>().Where(line => line.linePlayer.UserId == rig.photonView.Owner.UserId).FirstOrDefault().muteButton.enabled = false;
+                    }
+                }
+            }
+        }
+
+        public static void UnmuteAll()
+        {
+            foreach (VRRig rig in GorillaParent.instance.vrrigs)
+            {
+                if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                {
+                    rig.muted = false;
+                    GameObject.FindObjectsOfType<GorillaPlayerScoreboardLine>().Where(line => line.linePlayer.UserId == rig.photonView.Owner.UserId).FirstOrDefault().PressButton(false, GorillaPlayerLineButton.ButtonType.Mute);
+                    GameObject.FindObjectsOfType<GorillaPlayerScoreboardLine>().Where(line => line.linePlayer.UserId == rig.photonView.Owner.UserId).FirstOrDefault().muteButton.enabled = false;
+                }
+            }
+        }
+
         public static void Rejoin()
         {
             Menu.Menu.Instance.Controller().OnDisconnected(DisconnectCause.DisconnectByClientLogic);
@@ -70,14 +137,34 @@ namespace ShibaGTGenesis
             Menu.Menu.Instance.rejoinCode = null;
         }
 
+        private static GameObject cachedTriggers;
         public static void DisableNetworkTriggers()
         {
-            GameObject.Find("NetworkTriggers").SetActive(true);
+            cachedTriggers = GameObject.Find("Networking Trigger");
+            cachedTriggers.SetActive(false);
         }
         public static void EnableNetworkTriggers()
         {
-            GameObject.Find("NetworkTriggers").SetActive(true);
+            cachedTriggers.SetActive(true);
         }
+
+        public static void VisibleTrigs()
+        {
+            foreach (Renderer g in GameObject.Find("Networking Trigger").GetComponentsInChildren<Renderer>())
+            {
+                g.material.shader = Shader.Find("Standard");
+                g.enabled = true;
+            }
+        }
+
+        public static void NonVisTrigs()
+        {
+            foreach (Renderer g in GameObject.Find("Networking Trigger").GetComponentsInChildren<Renderer>())
+            {
+                g.enabled = false;
+            }
+        }
+
 
         public static void AntiReport()
         {
@@ -101,6 +188,21 @@ namespace ShibaGTGenesis
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        public static void AntiModerator()
+        {
+            foreach (VRRig rig in GorillaParent.instance.vrrigs)
+            {
+                if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                {
+                    if (rig.concatStringOfCosmeticsAllowed.Contains("LBAAK"))
+                    {
+                        PhotonNetwork.Disconnect();
+                        NotificationManager.SendNotification("<color=red>[ANTI-MODERATOR]</color> Someone with a STICK joined, disconnected.");
                     }
                 }
             }

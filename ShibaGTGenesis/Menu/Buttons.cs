@@ -118,7 +118,7 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Talk Through Siren [t]", method =() => PlayerMovement.SirenTalk(), isTogglable = true, toolTip = "siren!" },
                 new ButtonInfo { buttonText = "Banana Car", method =() => PlayerMovement.BananaCar(), isTogglable = true, toolTip = "Car (joystick)!" },
                 new ButtonInfo { buttonText = "TP Gun", method =() => PlayerMovement.TPGun(), isTogglable = true, toolTip = "Teleport to the pointer!" },
-                new ButtonInfo { buttonText = "TP To Random", method =() => PlayerMovement.TPGun(), isTogglable = true, toolTip = "TP!" },
+                new ButtonInfo { buttonText = "TP To Random", method =() => PlayerMovement.TPGun(), isTogglable = false, toolTip = "TP!" },
                 new ButtonInfo { buttonText = "Auto Run [lg]", method =() => PlayerMovement.AutoRun(), isTogglable = true, toolTip = "Run silly!" },
                 new ButtonInfo { buttonText = "Bhop [kingofnetflix]", method =() => PlayerMovement.Bhop(), isTogglable = true, toolTip = "Minecraft!" },
             },

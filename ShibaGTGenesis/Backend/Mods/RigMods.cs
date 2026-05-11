@@ -2,6 +2,7 @@
 using Il2CppSystem;
 using Photon.Pun;
 using ShibaGTGenesis.Classes;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ShibaGTGenesis
@@ -182,6 +183,28 @@ namespace ShibaGTGenesis
                 GorillaTagger.Instance.myVRRig.enabled = true;
             }
         }
+
+        public static void Tpose()
+        {
+            if (EasyInputs.GetGripButtonDown(EasyHand.RightHand))
+            {
+                GorillaTagger.Instance.myVRRig.enabled = false;
+
+                GorillaTagger.Instance.myVRRig.transform.rotation = GorillaTagger.Instance.bodyCollider.transform.rotation;
+                GorillaTagger.Instance.myVRRig.transform.position = GorillaLocomotion.Player.Instance.bodyCollider.transform.position + new Vector3(0, 0.3f, 0);
+
+                GorillaTagger.Instance.myVRRig.leftHand.rigTarget.transform.position = GorillaTagger.Instance.myVRRig.transform.position + GorillaTagger.Instance.myVRRig.transform.right * -1f;
+                GorillaTagger.Instance.myVRRig.rightHand.rigTarget.transform.position = GorillaTagger.Instance.myVRRig.transform.position + GorillaTagger.Instance.myVRRig.transform.right * 1f;
+
+                GorillaTagger.Instance.myVRRig.leftHand.rigTarget.transform.rotation = GorillaTagger.Instance.myVRRig.transform.rotation;
+                GorillaTagger.Instance.myVRRig.rightHand.rigTarget.transform.rotation = GorillaTagger.Instance.myVRRig.transform.rotation;
+            }
+            else
+            {
+                GorillaTagger.Instance.myVRRig.enabled = true;
+            }
+        }
+
 
         public static void LucyGun()
         {
@@ -381,7 +404,101 @@ namespace ShibaGTGenesis
                     GorillaTagger.Instance.myVRRig.leftHand.rigTarget.transform.rotation = Menu.Menu.lockTarget.transform.rotation;
                     GorillaTagger.Instance.myVRRig.rightHand.rigTarget.transform.rotation = Menu.Menu.lockTarget.transform.rotation;
                     GorillaTagger.Instance.myVRRig.head.rigTarget.transform.rotation = Menu.Menu.lockTarget.transform.rotation;
+                }
 
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        Menu.Menu.lockTarget = rig;
+                        Menu.Menu.gunLocked = true;
+                    }
+                }
+                else
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = true;
+                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
+            }
+        }
+
+
+        public static List<VRRig> validRigs = new List<VRRig>();
+        public static RaycastHit[] rayResults = new RaycastHit[1];
+        public static LayerMask layerMask = (1 << LayerMask.NameToLayer("Default")) | (1 << LayerMask.NameToLayer("GorillaObject"));
+
+        public static float Distance2D(Vector3 a, Vector3 b)
+        {
+            Vector2 a2 = new Vector2(a.x, a.z);
+            Vector2 b2 = new Vector2(b.x, b.z);
+            return Vector2.Distance(a2, b2);
+        }
+        public static bool PlayerNear(VRRig rig, float dist, out float playerDist)
+        {
+            if (rig == null)
+            {
+                playerDist = float.PositiveInfinity;
+                return false;
+            }
+            playerDist = Distance2D(rig.transform.position, GorillaTagger.Instance.myVRRig.transform.position);
+            return playerDist < dist && Physics.RaycastNonAlloc(new Ray(GorillaTagger.Instance.myVRRig.transform.position, rig.transform.position - GorillaTagger.Instance.myVRRig.transform.position), rayResults, playerDist, layerMask) <= 0;
+        }
+
+        public static List<VRRig> GetValidChoosableRigs()
+        {
+            validRigs.Clear();
+            foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+            {
+                if (PhotonNetwork.InRoom && vrrig != null && vrrig != GorillaTagger.Instance.myVRRig)
+                {
+                    validRigs.Add(vrrig);
+                }
+            }
+            return validRigs;
+        }
+        public static bool ClosestPlayer(in Vector3 myPos, out VRRig outRig)
+        {
+            float num = float.MaxValue;
+            outRig = null;
+            foreach (VRRig vrrig in GetValidChoosableRigs())
+            {
+                if (vrrig != null && vrrig != GorillaTagger.Instance.myVRRig)
+                {
+                    float num2 = 0f;
+                    if (PlayerNear(vrrig, 3f, out num2) && num2 < num)
+                    {
+                        num = num2;
+                        outRig = vrrig;
+                    }
+                }
+            }
+            return num != float.MaxValue;
+        }
+
+        public static void LookAtClosest()
+        {
+            VRRig closestRig = GorillaTagger.Instance.myVRRig;
+            ClosestPlayer(GorillaTagger.Instance.myVRRig.transform.position, out closestRig);
+            GorillaTagger.Instance.myVRRig.headConstraint.LookAt(closestRig.transform.position + new Vector3(0, 0.4f, 0));
+        }
+
+        public static void LookAtGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+
+                if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
+                {
+                    ClosestPlayer(GorillaTagger.Instance.myVRRig.transform.position, out Menu.Menu.lockTarget);
+                    GorillaTagger.Instance.myVRRig.headConstraint.LookAt(Menu.Menu.lockTarget.headMesh.transform.position + new Vector3(0, 0.4f, 0));
                 }
 
                 if (Menu.Menu.GetGunInput(true))

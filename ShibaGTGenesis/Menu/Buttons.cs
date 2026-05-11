@@ -34,7 +34,7 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Antiban", method =() => OPMods.AntiBan(), isTogglable = false, toolTip = "Antiban!" },
                 new ButtonInfo { buttonText = "Antiban Status", method =() => OPMods.AntiBanStatus(), isTogglable = false, toolTip = "Antiban!" },
                 new ButtonInfo { buttonText = "Set Master", method =() => OPMods.SetMaster(), isTogglable = false, toolTip = "set master!" },
-                new ButtonInfo { buttonText = "Auto Set Master", method =() => OPMods.AutoSetMaster(), isTogglable = false, toolTip = "set master automaticly!" },
+                new ButtonInfo { buttonText = "Auto Set Master", method =() => OPMods.AutoSetMaster(), isTogglable = true, toolTip = "set master automaticly!" },
                 new ButtonInfo { buttonText = "Lag Gun", method =() => OPMods.LagGun(), isTogglable = true, toolTip = "crashes everyone!" },
                 new ButtonInfo { buttonText = "Lag All", method =() => OPMods.LagAll(), isTogglable = true, toolTip = "crashes everyone!" },
                 new ButtonInfo { buttonText = "Lag On Touch", method =() => OPMods.LagOnTouch(), isTogglable = true, toolTip = "crashes when someone touches u!" },

@@ -89,6 +89,9 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Cube Gun", method =() => WorldMods.CubeGun(), isTogglable = true, toolTip = "cubes!" },
                 new ButtonInfo { buttonText = "Target Spammer [g]", method =() => WorldMods.TargetSpam(), isTogglable = true, toolTip = "targets!" },
                 new ButtonInfo { buttonText = "Target Gun", method =() => WorldMods.TargetGun(), isTogglable = true, toolTip = "targets!" },
+                new ButtonInfo { buttonText = "Disable QuitBox", method =() => WorldMods.DisableQuitbox(), disableMethod =() => WorldMods.OffQuitboxMod(), isTogglable = true, toolTip = "crazy!"},
+                new ButtonInfo { buttonText = "Teleport To Stump When Out Of Map", method =() => WorldMods.QuitboxMod(), disableMethod =() => WorldMods.OffQuitboxMod(), isTogglable = true, toolTip = "crazy!"},
+
             },
 
             new ButtonInfo[] { // Visual Mods | 5

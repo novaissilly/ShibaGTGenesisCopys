@@ -62,6 +62,29 @@ namespace ShibaGTGenesis
             }
         }
 
+        public static bool disableQuitbox;
+
+        public static void DisableQuitbox()
+        {
+            disableQuitbox = true;
+        }
+
+        public static bool QuitBoxMOD;
+
+        public static void OnQuitbox()
+        {
+            disableQuitbox = false;
+        }
+
+        public static void QuitboxMod()
+        {
+            QuitBoxMOD = true;
+        }
+
+        public static void OffQuitboxMod()
+        {
+            QuitBoxMOD = false;
+        }
         public static void Lcubebending()
         {
             if (EasyInputs.GetGripButtonDown(EasyHand.LeftHand))

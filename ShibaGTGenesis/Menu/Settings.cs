@@ -1,4 +1,5 @@
-﻿using ShibaGTGenesis.Classes;
+﻿using Photon.Pun;
+using ShibaGTGenesis.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -124,6 +125,33 @@ namespace ShibaGTGenesis.Menu
             }
         }
 
+        public static void MoveStatusGun()
+        {
+            if (Menu.GetGunInput(false))
+            {
+                var GunData = Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+
+                if (Menu.GetGunInput(true))
+                {
+                    Menu.mainCamera = null;
+                    GameObject.Destroy(GameObject.Find("GenesisStatus"));
+                    Menu.status3 = Pointer.transform.position;
+                }
+            }
+        }
+
+        public static bool disablestatus;
+        public static void DisableStatus()
+        {
+            disablestatus = true;
+        }
+        public static void OFFDisableStatus()
+        {
+            disablestatus = false;
+        }
+
+
         public static void ChangeSpeedboost(bool loading)
         {
             try
@@ -164,6 +192,54 @@ namespace ShibaGTGenesis.Menu
             }
         }
 
+        public static bool lowercasemenu = false;
+        public static List<string> backupLower = new List<string>();
+        public static bool frozen;
+
+
+        public static void LowercaseMenu()
+        {
+            if (!lowercasemenu)
+            {
+                backupLower.Clear();
+                foreach (ButtonInfo[] info in Buttons.buttons)
+                {
+                    foreach (ButtonInfo infoo in info)
+                    {
+                        backupLower.Add(infoo.buttonText);
+                        infoo.buttonText = infoo.buttonText.ToLower();
+                    }
+                }
+                lowercasemenu = true;
+            }
+        }
+        public static void OFFLowercaseMenu()
+        {
+            if (lowercasemenu)
+            {
+                foreach (ButtonInfo[] info in Buttons.buttons)
+                {
+                    foreach (ButtonInfo infoo in info)
+                    {
+                        foreach (string s in backupLower)
+                        {
+                            if (infoo.buttonText.ToLower() == s.ToLower())
+                                infoo.buttonText = s;
+                        }
+                    }
+                }
+                lowercasemenu = false;
+            }
+        }
+        public static void FreezeIn()
+        {
+            frozen = true;
+        }
+        public static void AllowMovement()
+        {
+            frozen = false;
+        }
+
         public static void SavePreferences()
         {
             try
@@ -174,9 +250,11 @@ namespace ShibaGTGenesis.Menu
                 {
                     $"MenuLayout={Menu.MenuLayout}",
                     $"Theme={Menu.Theme}",
-                    $"Speed={Menu.Speed}"
+                    $"Speed={Menu.Speed}",
+                    $"Frozen={frozen}",
+                    $"LowercaseMenu={lowercasemenu}",
+                    $"DisableStatus={disablestatus}"
                 };
-
                 File.WriteAllLines(PrefsFile, lines);
                 SaveEnabledButtons();
             }
@@ -193,6 +271,9 @@ namespace ShibaGTGenesis.Menu
                 if (!File.Exists(PrefsFile))
                     return;
                 string[] lines = File.ReadAllLines(PrefsFile);
+                bool loadedFrozen = false;
+                bool loadedLowercase = false;
+                bool loadedDisableStatus = false;
                 foreach (string line in lines)
                 {
                     if (string.IsNullOrWhiteSpace(line))
@@ -213,12 +294,32 @@ namespace ShibaGTGenesis.Menu
                         case "Speed":
                             int.TryParse(value, out Menu.Speed);
                             break;
+                        case "Frozen":
+                            bool.TryParse(value, out loadedFrozen);
+                            break;
+                        case "LowercaseMenu":
+                            bool.TryParse(value, out loadedLowercase);
+                            break;
+                        case "DisableStatus":
+                            bool.TryParse(value, out loadedDisableStatus);
+                            break;
                     }
                 }
-
                 ChangeLayout(true);
                 ChangeMenuTheme(true);
                 ChangeSpeedboost(true);
+                if (loadedFrozen)
+                    FreezeIn();
+                else
+                    AllowMovement();
+                if (loadedLowercase)
+                    LowercaseMenu();
+                else
+                    OFFLowercaseMenu();
+                if (loadedDisableStatus)
+                    DisableStatus();
+                else
+                    OFFDisableStatus();
                 LoadEnabledButtons();
             }
             catch (Exception ex)

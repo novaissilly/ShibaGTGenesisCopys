@@ -8,6 +8,7 @@ using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -110,6 +111,16 @@ namespace ShibaGTGenesis.Menu
             }
             catch { }
 
+            if (menu != null && Settings.frozen)
+            {
+                if (savedpOs == Vector3.zero)
+                    savedpOs = GorillaLocomotion.Player.Instance.transform.position;
+
+                WorldMods.NoGravity();
+                GorillaLocomotion.Player.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                GorillaLocomotion.Player.Instance.transform.position = savedpOs;
+            }
+
             if (triggerpages)
             {
                 if (EasyInputs.GetTriggerButtonDown(EasyHand.RightHand) && !triggeroncepagetoggle)
@@ -127,6 +138,43 @@ namespace ShibaGTGenesis.Menu
                     triggeroncepagetoggle = false;
                 }
             }
+
+            if (!Settings.disablestatus)
+            {
+                if (mainCamera == null)
+                {
+                    mainCamera = Camera.main;
+
+                    GameObject textObject = new GameObject("FloatingText");
+
+                    textObject.transform.position = status3 + new Vector3(0, 0.25f, 0);
+                    textObject.name = "GenesisStatus";
+
+                    textMesh = textObject.AddComponent<TextMeshPro>();
+
+
+                    textMesh.fontSize = 1;
+                    textMesh.alignment = TextAlignmentOptions.Center;
+                    textMesh.color = Color.white;
+
+                    RectTransform rectTransform = textObject.GetComponent<RectTransform>();
+                    rectTransform.sizeDelta = new Vector2(200, 50);
+                }
+
+                textMesh.text = "<color=blue>[ GENESIS ]</color>\nWelcome to ShibaGT Genesis\nThe best cheat on the market!\n\n<color=yellow>[ MENU STATUS : UNDETECTED ]</color>";
+                textMesh.transform.LookAt(GorillaTagger.Instance.offlineVRRig.headMesh.transform.position);
+                textMesh.transform.Rotate(0, 180, 0);
+            }
+            else
+            {
+                if (mainCamera != null)
+                {
+                    mainCamera = null;
+                    Destroy(textMesh);
+                    textMesh = null;
+                }
+            }
+
 
             DestroyPointer();
 
@@ -786,7 +834,13 @@ namespace ShibaGTGenesis.Menu
         public GameObject menubackground;
         public GameObject canvasObject;
 
+        public Vector3 savedpOs;
+
         public Text tooltip;
+
+        public static Vector3 status3 = new Vector3(-66.2834f, 12.2343f, -82.6418f);
+        public static Camera mainCamera;
+        private TextMeshPro textMesh;
 
         public GameObject reference;
         public SphereCollider referencecollider;

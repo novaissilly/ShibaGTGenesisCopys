@@ -28,6 +28,10 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Change Menu Layout: ShibaGT", method =() => Settings.ChangeLayout(false), isTogglable = false, enabled = false, toolTip = "Change layout!" },
                 new ButtonInfo { buttonText = "Change Menu Theme: Dark", method =() => Settings.ChangeMenuTheme(false), enabled = false, toolTip = "Change theme!" },
                 new ButtonInfo { buttonText = "Change Speed Boost: Mosa / Legit", method =() => Settings.ChangeSpeedboost(false), enabled = false, toolTip = "Change speed!" },
+                new ButtonInfo { buttonText = "Lowercase Menu", method =() => Settings.LowercaseMenu(), disableMethod =() => Settings.OFFLowercaseMenu(), isTogglable = true, toolTip = "makes the menu lowercase!"},
+                new ButtonInfo { buttonText = "Freeze When In Menu", method =() => Settings.FreezeIn(), disableMethod =() => Settings.AllowMovement(), isTogglable = true, toolTip = "makes you freeze when menu open!"},
+                new ButtonInfo { buttonText = "Move Menu Status Gun", method =() => Settings.MoveStatusGun(), isTogglable = true, toolTip = "mmoves status!"},
+                new ButtonInfo { buttonText = "Disable Menu Status In Stump", method =() => Settings.DisableStatus(), disableMethod =() => Settings.OFFDisableStatus(), isTogglable = true, toolTip = "Rainbow!"},
             },
 
             new ButtonInfo[] { // OP Mods | 2

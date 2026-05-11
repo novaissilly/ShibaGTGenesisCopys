@@ -338,7 +338,6 @@ namespace ShibaGTGenesis
                     GorillaTagger.Instance.myVRRig.head.headTransform.transform.rotation = Menu.Menu.lockTarget.head.headTransform.transform.rotation;
                     GorillaTagger.Instance.myVRRig.head.headTransform.transform.position = Menu.Menu.lockTarget.head.headTransform.transform.position;
                     GorillaTagger.Instance.offlineVRRig.headConstraint.rotation = Menu.Menu.lockTarget.headConstraint.rotation;
-
                 }
 
                 if (Menu.Menu.GetGunInput(true))
@@ -355,6 +354,48 @@ namespace ShibaGTGenesis
                     GorillaTagger.Instance.myVRRig.enabled = true;
                     GorillaTagger.Instance.myVRRig.headConstraint.rotation = GorillaLocomotion.Player.Instance.headCollider.transform.rotation;
 
+                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
+            }
+        }
+
+        public static void SexGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+
+                if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = false;
+                    GorillaTagger.Instance.myVRRig.transform.position = Menu.Menu.lockTarget.transform.position + (Menu.Menu.lockTarget.transform.forward * -(0.2f + (Mathf.Sin(Time.frameCount / 8f) * 0.1f)));
+                    GorillaTagger.Instance.myVRRig.transform.rotation = Menu.Menu.lockTarget.transform.rotation;
+                    GorillaTagger.Instance.myVRRig.leftHand.rigTarget.transform.position = (Menu.Menu.lockTarget.transform.position + Menu.Menu.lockTarget.transform.right * -0.2f) + Menu.Menu.lockTarget.transform.up * -0.4f;
+                    GorillaTagger.Instance.myVRRig.rightHand.rigTarget.transform.position = (Menu.Menu.lockTarget.transform.position + Menu.Menu.lockTarget.transform.right * 0.2f) + Menu.Menu.lockTarget.transform.up * -0.4f;
+                    GorillaTagger.Instance.myVRRig.leftHand.rigTarget.transform.rotation = Menu.Menu.lockTarget.transform.rotation;
+                    GorillaTagger.Instance.myVRRig.rightHand.rigTarget.transform.rotation = Menu.Menu.lockTarget.transform.rotation;
+                    GorillaTagger.Instance.myVRRig.head.rigTarget.transform.rotation = Menu.Menu.lockTarget.transform.rotation;
+
+                }
+
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        Menu.Menu.lockTarget = rig;
+                        Menu.Menu.gunLocked = true;
+                    }
+                }
+                else
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = true;
                 }
             }
             else

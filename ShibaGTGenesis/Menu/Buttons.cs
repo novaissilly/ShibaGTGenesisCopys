@@ -143,6 +143,7 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Lucy Random [rg]", method =() => RigMods.LucyRandom(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "Become Lucy!" },
                 new ButtonInfo { buttonText = "Lucy Gun", method =() => RigMods.LucyGun(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "Gun!" },
                 new ButtonInfo { buttonText = "Copy Gun", method =() => RigMods.CopyGun(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "Copy gun!" },
+                new ButtonInfo { buttonText = "Sex Gun", method =() => RigMods.SexGun(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "Gun!" },
                 new ButtonInfo { buttonText = "Spin Bot [lg]", method =() => RigMods.SpinBot(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "Spin!" },
                 new ButtonInfo { buttonText = "Head Spin", method =() => RigMods.HeadSpin(), disableMethod =() => RigMods.OffHeadSpin(), isTogglable = true, toolTip = "Spin!" },
                 new ButtonInfo { buttonText = "Head Roll", method =() => RigMods.HeadRoll(), disableMethod =() => RigMods.OffHeadRoll(), isTogglable = true, toolTip = "Roll!" },

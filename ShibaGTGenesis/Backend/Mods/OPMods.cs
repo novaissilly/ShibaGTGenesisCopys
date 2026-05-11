@@ -213,11 +213,12 @@ namespace ShibaGTGenesis
                     VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
                     if (rig != null && rig != GorillaTagger.Instance.myVRRig)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                             PhotonNetwork.RaiseEvent(3, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                         }
+                        FLushRPCS();
                     }
                 }
             }
@@ -232,13 +233,14 @@ namespace ShibaGTGenesis
                     Vector3 them = rig.headMesh.transform.position;
                     if (Vector3.Distance(them, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 0.75f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             GorillaTagger.Instance.myVRRig.photonView.RPC("UpdatePlayerCosmetic", rig.photonView.Owner, null);
                             GorillaTagger.Instance.myVRRig.photonView.RPC("RequestCosmetics", rig.photonView.Owner, null);
                             PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                         }
                     }
+                    FLushRPCS();
                 }
             }
         }
@@ -252,12 +254,13 @@ namespace ShibaGTGenesis
                     Vector3 them = rig.headMesh.transform.position;
                     if (Vector3.Distance(them, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 0.75f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                             PhotonNetwork.RaiseEvent(3, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                         }
                     }
+                    FLushRPCS();
                 }
             }
         }
@@ -272,7 +275,7 @@ namespace ShibaGTGenesis
                     Vector3 lhand = rig.leftHandTransform.position;
                     if (Vector3.Distance(rhand, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 0.55f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             GorillaTagger.Instance.myVRRig.photonView.RPC("UpdatePlayerCosmetic", rig.photonView.Owner, null);
                             GorillaTagger.Instance.myVRRig.photonView.RPC("RequestCosmetics", rig.photonView.Owner, null);
@@ -281,13 +284,14 @@ namespace ShibaGTGenesis
                     }
                     if (Vector3.Distance(lhand, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 0.55f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             GorillaTagger.Instance.myVRRig.photonView.RPC("UpdatePlayerCosmetic", rig.photonView.Owner, null);
                             GorillaTagger.Instance.myVRRig.photonView.RPC("RequestCosmetics", rig.photonView.Owner, null);
                             PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                         }
                     }
+                    FLushRPCS();
                 }
             }
         }
@@ -302,7 +306,7 @@ namespace ShibaGTGenesis
                     Vector3 lhand = rig.leftHandTransform.position;
                     if (Vector3.Distance(rhand, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 0.55f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                             PhotonNetwork.RaiseEvent(3, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
@@ -310,14 +314,27 @@ namespace ShibaGTGenesis
                     }
                     if (Vector3.Distance(lhand, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 0.55f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                             PhotonNetwork.RaiseEvent(3, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                         }
                     }
+                    FLushRPCS();
                 }
             }
+        }
+
+        public static void FLushRPCS()
+        {
+            GorillaNot.instance.rpcErrorMax = int.MaxValue;
+            GorillaNot.instance.rpcCallLimit = int.MaxValue;
+            GorillaNot.instance.logErrorMax = int.MaxValue;
+
+            PhotonNetwork.MaxResendsBeforeDisconnect = int.MaxValue;
+            PhotonNetwork.QuickResends = int.MaxValue;
+
+            PhotonNetwork.SendAllOutgoingCommands();
         }
 
         public static void LagOnYouTouch()
@@ -330,7 +347,7 @@ namespace ShibaGTGenesis
                     Vector3 lhand = GorillaTagger.Instance.leftHandTransform.position;
                     if (Vector3.Distance(rhand, rig.headMesh.transform.position) <= 0.55f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             GorillaTagger.Instance.myVRRig.photonView.RPC("UpdatePlayerCosmetic", rig.photonView.Owner, null);
                             GorillaTagger.Instance.myVRRig.photonView.RPC("RequestCosmetics", rig.photonView.Owner, null);
@@ -339,13 +356,14 @@ namespace ShibaGTGenesis
                     }
                     if (Vector3.Distance(lhand, rig.headMesh.transform.position) <= 0.55f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             GorillaTagger.Instance.myVRRig.photonView.RPC("UpdatePlayerCosmetic", rig.photonView.Owner, null);
                             GorillaTagger.Instance.myVRRig.photonView.RPC("RequestCosmetics", rig.photonView.Owner, null);
                             PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                         }
                     }
+                    FLushRPCS();
                 }
             }
         }
@@ -360,7 +378,7 @@ namespace ShibaGTGenesis
                     Vector3 lhand = GorillaTagger.Instance.leftHandTransform.position;
                     if (Vector3.Distance(rhand, rig.headMesh.transform.position) <= 0.55f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                             PhotonNetwork.RaiseEvent(3, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
@@ -368,12 +386,13 @@ namespace ShibaGTGenesis
                     }
                     if (Vector3.Distance(lhand, rig.headMesh.transform.position) <= 0.55f)
                     {
-                        for (int i = 0; i < 35; i++)
+                        for (int i = 0; i < 150; i++)
                         {
                             PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                             PhotonNetwork.RaiseEvent(3, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { rig.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                         }
                     }
+                    FLushRPCS();
                 }
             }
         }
@@ -392,12 +411,13 @@ namespace ShibaGTGenesis
         {
             foreach (Photon.Realtime.Player plr in PhotonNetwork.PlayerListOthers)
             {
-                for (int i = 0; i < 35; i++)
+                for (int i = 0; i < 150; i++)
                 {
                     GorillaTagger.Instance.myVRRig.photonView.RPC("UpdatePlayerCosmetic", plr, null);
                     GorillaTagger.Instance.myVRRig.photonView.RPC("RequestCosmetics", plr, null);
                     PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { Receivers = Photon.Realtime.ReceiverGroup.Others }, SendOptions.SendReliable);
                 }
+                FLushRPCS();
             }
         }
 
@@ -411,12 +431,13 @@ namespace ShibaGTGenesis
 
                 if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
                 {
-                    for (int i = 0; i < 35; i++)
+                    for (int i = 0; i < 150; i++)
                     {
                         GorillaTagger.Instance.myVRRig.photonView.RPC("UpdatePlayerCosmetic", Menu.Menu.lockTarget.photonView.Owner, null);
                         GorillaTagger.Instance.myVRRig.photonView.RPC("RequestCosmetics", Menu.Menu.lockTarget.photonView.Owner, null);
                         PhotonNetwork.RaiseEvent(2, null, new Photon.Realtime.RaiseEventOptions { TargetActors = new int[] { Menu.Menu.lockTarget.photonView.Owner.ActorNumber } }, SendOptions.SendReliable);
                     }
+                    FLushRPCS();
                 }
 
                 if (Menu.Menu.GetGunInput(true))

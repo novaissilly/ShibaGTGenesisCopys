@@ -4,6 +4,7 @@ using GorillaNetworking;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace ShibaGTGenesis
@@ -243,10 +244,29 @@ namespace ShibaGTGenesis
             }
         }
 
+        static float gradientTime;
         public static void GenesisName()
         {
-            PhotonNetwork.LocalPlayer.NickName = "<color=#3B82F6>S</color><color=#4B89F2>H</color><color=#5B90EE>I</color><color=#6B97EA>B</color><color=#7B9EE6>A</color><color=#8BA5E2>G</color><color=#9CA3AF>T GENESIS</color> " 
-            + "<color=#60A5FA>BY NOVA</color>\n" + "discord.gg/dtQdz59FJG";
+            gradientTime += Time.deltaTime * 2f;
+            string animatedName = GenerateGradientText(
+                "SHIBAGT GENESIS",
+                new Color(0.23f, 0.51f, 0.96f),
+                new Color(0.61f, 0.64f, 0.69f),
+                gradientTime
+            );
+            PhotonNetwork.LocalPlayer.NickName = animatedName + "\n<color=#60A5FA>BY NOVA</color>\n" + "discord.gg/dtQdz59FJG";
+        }
+        static string GenerateGradientText(string text, Color color1, Color color2, float time)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < text.Length; i++)
+            {
+                float t = Mathf.PingPong(time + i * 0.15f, 1f);
+                Color current = Color.Lerp(color1, color2, t);
+                string hex = ColorUtility.ToHtmlStringRGB(current);
+                sb.Append($"<color=#{hex}>{text[i]}</color>");
+            }
+            return sb.ToString();
         }
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="Notifications\NotificationManager.cs" />
     <Compile Include="Notifications\PlayerJoin.cs" />
     <Compile Include="Notifications\PlayerLeave.cs" />
+    <Compile Include="Patches\QuitboxPatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

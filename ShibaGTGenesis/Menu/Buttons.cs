@@ -1,4 +1,5 @@
 ﻿using ShibaGTGenesis.Classes;
+using UnityEngine;
 using static ShibaGTGenesis.Menu.Menu;
 
 namespace ShibaGTGenesis.Menu
@@ -89,6 +90,16 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Cube Gun", method =() => WorldMods.CubeGun(), isTogglable = true, toolTip = "cubes!" },
                 new ButtonInfo { buttonText = "Target Spammer [g]", method =() => WorldMods.TargetSpam(), isTogglable = true, toolTip = "targets!" },
                 new ButtonInfo { buttonText = "Target Gun", method =() => WorldMods.TargetGun(), isTogglable = true, toolTip = "targets!" },
+                new ButtonInfo { buttonText = "Spawn Blue Lucy [m]", method =() => WorldMods.SpawnLucy(Color.blue), isTogglable = false, toolTip = "lucy!"},
+                new ButtonInfo { buttonText = "Spawn Red Lucy [m]", method =() => WorldMods.SpawnLucy(Color.red), isTogglable = false, toolTip = "lucy!"},
+                new ButtonInfo { buttonText = "Spawn Black Lucy [m]", method =() => WorldMods.SpawnLucy(Color.black), isTogglable = false, toolTip = "lucy!"},
+                new ButtonInfo { buttonText = "Despawn Lucy [m]", method =() => WorldMods.DespawnLucy(), isTogglable = false, toolTip = "lucy!"},
+                new ButtonInfo { buttonText = "Lucy Grab Player Gun [m]", method =() => WorldMods.LucyGrabGun(), isTogglable = true, toolTip = "lucy!"},
+                new ButtonInfo { buttonText = "Lucy Gun [m]", method =() => WorldMods.LucyGun(), isTogglable = true, toolTip = "lucy!"},
+                new ButtonInfo { buttonText = "Become Lucy [m]", method =() => WorldMods.BecomeLucy(), isTogglable = true, toolTip = "lucy!"},
+                new ButtonInfo { buttonText = "Slow Lucy [m]", method =() => WorldMods.SlowLucy(), toolTip = "lucy!"},
+                new ButtonInfo { buttonText = "Fast Lucy [m]", method =() => WorldMods.FastLucy(), isTogglable = false, toolTip = "lucy!"},
+                new ButtonInfo { buttonText = "Fix Lucy [m]", method =() => WorldMods.FixLucy(), isTogglable = false,  toolTip = "lucy!"},
                 new ButtonInfo { buttonText = "Disable QuitBox", method =() => WorldMods.DisableQuitbox(), disableMethod =() => WorldMods.OffQuitboxMod(), isTogglable = true, toolTip = "crazy!"},
                 new ButtonInfo { buttonText = "Teleport To Stump When Out Of Map", method =() => WorldMods.QuitboxMod(), disableMethod =() => WorldMods.OffQuitboxMod(), isTogglable = true, toolTip = "crazy!"},
 

@@ -1,5 +1,7 @@
 ﻿using easyInputs;
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using ShibaGTGenesis.Classes;
 using UnityEngine;
 
 namespace ShibaGTGenesis
@@ -274,6 +276,146 @@ namespace ShibaGTGenesis
         public static void HighGravity()
         {
             GorillaLocomotion.Player.Instance.bodyCollider.attachedRigidbody.AddForce(Vector3.down * (Time.deltaTime * (6.66f / Time.deltaTime)), ForceMode.Acceleration);
+        }
+
+        public static void SpawnLucy(Color color)
+        {
+            HalloweenGhostChaser hgc = GameObject.Find("Global/Halloween Ghost/FloatingChaseSkeleton").GetComponent<HalloweenGhostChaser>();
+            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                NotificationManager.SendNotification("<color=red>[ERROR]</color> Become master");
+                return;
+            }
+            hgc.currentState = HalloweenGhostChaser.ChaseState.Gong;
+            hgc.isSummoned = true;
+            hgc.summonedColor = color;
+            hgc.defaultColor = color;
+            hgc.UpdateState();
+        }
+
+        public static void DespawnLucy()
+        {
+            HalloweenGhostChaser hgc = GameObject.Find("Global/Halloween Ghost/FloatingChaseSkeleton").GetComponent<HalloweenGhostChaser>();
+            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                NotificationManager.SendNotification("<color=red>[ERROR]</color> Become master");
+                return;
+            }
+            hgc.currentState = HalloweenGhostChaser.ChaseState.Dormant;
+            hgc.isSummoned = false;
+            hgc.UpdateState();
+        }
+        public static void FastLucy()
+        {
+            HalloweenGhostChaser hgc = GameObject.Find("Global/Halloween Ghost/FloatingChaseSkeleton").GetComponent<HalloweenGhostChaser>();
+            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                NotificationManager.SendNotification("<color=red>[ERROR]</color> Become master");
+                return;
+            }
+            hgc.currentSpeed = 25;
+        }
+
+        public static void SlowLucy()
+        {
+            HalloweenGhostChaser hgc = GameObject.Find("Global/Halloween Ghost/FloatingChaseSkeleton").GetComponent<HalloweenGhostChaser>();
+            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                NotificationManager.SendNotification("<color=red>[ERROR]</color> Become master");
+                return;
+            }
+            hgc.currentSpeed = 5;
+        }
+
+        public static void FixLucy()
+        {
+            HalloweenGhostChaser hgc = GameObject.Find("Global/Halloween Ghost/FloatingChaseSkeleton").GetComponent<HalloweenGhostChaser>();
+            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                NotificationManager.SendNotification("<color=red>[ERROR]</color> Become master");
+                return;
+            }
+            hgc.currentSpeed = 1;
+        }
+
+        public static void LucyGrabGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+
+                if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
+                {
+                    HalloweenGhostChaser hgc = GameObject.Find("Global/Halloween Ghost/FloatingChaseSkeleton").GetComponent<HalloweenGhostChaser>();
+                    if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+                    {
+                        NotificationManager.SendNotification("<color=red>[ERROR]</color> Become master");
+                        return;
+                    }
+                    hgc.targetPlayer = RigManager.GetPlayerFromVRRig(Menu.Menu.lockTarget);
+                    hgc.followTarget = Menu.Menu.lockTarget.head.rigTarget;
+                    hgc.grabSpeed = 40;
+                    hgc.currentState = HalloweenGhostChaser.ChaseState.Grabbing;
+                    hgc.UpdateState();
+                    hgc.grabbedPlayer = RigManager.GetPlayerFromVRRig(Menu.Menu.lockTarget);
+                    hgc.grabTime *= 5;
+                }
+
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        Menu.Menu.lockTarget = rig;
+                        Menu.Menu.gunLocked = true;
+                    }
+                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
+            }
+        }
+
+        public static void LucyGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    HalloweenGhostChaser hgc = GameObject.Find("Global/Halloween Ghost/FloatingChaseSkeleton").GetComponent<HalloweenGhostChaser>();
+                    if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+                    {
+                        NotificationManager.SendNotification("<color=red>[ERROR]</color> Become master");
+                        return;
+                    }
+                    hgc.currentState = HalloweenGhostChaser.ChaseState.InitialRise;
+                    hgc.isSummoned = true;
+                    hgc.UpdateState();
+                    hgc.transform.position = Pointer.transform.position;
+                }
+            }
+        }
+
+        public static void BecomeLucy()
+        {
+            HalloweenGhostChaser hgc = GameObject.Find("Global/Halloween Ghost/FloatingChaseSkeleton").GetComponent<HalloweenGhostChaser>();
+            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                NotificationManager.SendNotification("<color=red>[ERROR]</color> Become master");
+                return;
+            }
+            hgc.currentState = HalloweenGhostChaser.ChaseState.InitialRise;
+            hgc.isSummoned = true;
+            hgc.UpdateState();
+            hgc.transform.position = GorillaTagger.Instance.myVRRig.transform.position;
+            hgc.transform.rotation = GorillaTagger.Instance.myVRRig.transform.rotation;
         }
     }
 }

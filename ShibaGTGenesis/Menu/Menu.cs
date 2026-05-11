@@ -120,7 +120,7 @@ namespace ShibaGTGenesis.Menu
                     Toggle("PreviousPage");
                     triggeroncepagetoggle = true;
                 }
-                if (!EasyInputs.GetTriggerButtonDown(EasyHand.LeftHand) && !EasyInputs.GetTriggerButtonDown(EasyHand.RightHand && triggeroncepagetoggle)
+                if (!EasyInputs.GetTriggerButtonDown(EasyHand.LeftHand) && !EasyInputs.GetTriggerButtonDown(EasyHand.RightHand) && triggeroncepagetoggle)
                 {
                     triggeroncepagetoggle = false;
                 }

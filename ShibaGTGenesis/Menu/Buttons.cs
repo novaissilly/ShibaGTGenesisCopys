@@ -57,6 +57,8 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Name Change Gun", method =() => OPMods.ChangeNameGun(), isTogglable = true, toolTip = "Name changer!" },
                 new ButtonInfo { buttonText = "Disable Network Trigger [ss]", method =() => OPMods.ChangeNameGun(), isTogglable = true, toolTip = "network triggerssre!" },
                 new ButtonInfo { buttonText = "Clear Prefabs", method =() => OPMods.ClearPrefabs(), isTogglable = false, toolTip = "Clear!" },
+                new ButtonInfo { buttonText = "Ban Gun", method =() => OPMods.BanGun(), isTogglable = true, toolTip = "Ban!" },
+                new ButtonInfo { buttonText = "Ban All", method =() => OPMods.BanAll(), isTogglable = false, toolTip = "Ban!" },
             },
 
             new ButtonInfo[] { // Room Mods | 3

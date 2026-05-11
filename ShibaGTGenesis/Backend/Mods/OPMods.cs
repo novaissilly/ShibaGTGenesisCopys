@@ -1,9 +1,13 @@
 ﻿using ExitGames.Client.Photon;
+using Il2CppSystem.Net;
+using Newtonsoft.Json;
 using Photon.Pun;
 using Photon.Realtime;
+using PlayFab;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using UnityEngine;
 
 namespace ShibaGTGenesis
@@ -323,6 +327,56 @@ namespace ShibaGTGenesis
                     FLushRPCS();
                 }
             }
+        }
+        public static void BanAll()
+        {
+            foreach (VRRig rig in GorillaParent.instance.vrrigs)
+            {
+                if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                {
+                    BetaBanAll(rig.photonView.Owner.UserId);
+                }
+            }
+        }
+
+        public static void BanGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        BetaBanAll(rig.photonView.Owner.UserId);
+                    }
+                }
+            }
+        }
+
+        public static void BetaBanAll(string userid)
+        {
+            WebClient client = new WebClient();
+            client.Headers.Add("Content-Type", "application/json");
+            string url = "https://api-nova-two.vercel.app/banusingcloudscript";
+            string useragent = "banneratqolossallol";
+            string titleId = PlayFabSettings.TitleId;
+            client.Headers.Add("User-Agent", useragent);
+            string playerId = userid;
+            var payload = new
+            {
+                titleId = titleId,
+                playerId = userid
+            };
+            string json = JsonConvert.SerializeObject(payload);
+            byte[] data = Encoding.UTF8.GetBytes(json);
+            byte[] response = client.UploadData(url, "POST", data);
+            string responseString = Encoding.UTF8.GetString(response);
+            NotificationManager.SendNotification($"<color=cyan>[INFO]</color> Success {responseString}");
+            client.Dispose();
         }
 
         public static void FLushRPCS()

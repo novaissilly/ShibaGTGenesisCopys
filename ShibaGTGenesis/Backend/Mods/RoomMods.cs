@@ -1,9 +1,9 @@
-﻿using ExitGames.Client.Photon;
+﻿using easyInputs;
+using ExitGames.Client.Photon;
 using GorillaNetworking;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 
 namespace ShibaGTGenesis
 {
@@ -19,6 +19,13 @@ namespace ShibaGTGenesis
             PhotonNetwork.JoinRandomRoom();
         }
 
+        public static void BDisconnect()
+        {
+            if (EasyInputs.GetSecondaryButtonDown(EasyHand.RightHand))
+            {
+                PhotonNetwork.Disconnect();
+            }
+        }
         public static void CreatePublicRoom()
         {
             Hashtable dictionaryEntries = new Hashtable();

@@ -62,6 +62,7 @@ namespace ShibaGTGenesis.Menu
             new ButtonInfo[] { // Room Mods | 3
                 new ButtonInfo { buttonText = "Room Mods", method =() => Instance.ChangeCat(false), isTogglable = false, toolTip = "Go back!" },
                 new ButtonInfo { buttonText = "Join Code GENESIS", method =() => RoomMods.JoinGenesis(), isTogglable = false, toolTip = "Join the menus code!" },
+                new ButtonInfo { buttonText = "B to Disconnect", method =() => RoomMods.BDisconnect(), isTogglable = true, toolTip = "B to leave!" },
                 new ButtonInfo { buttonText = "Join Random Room", method =() => RoomMods.JoinRandomRoom(), isTogglable = false, toolTip = "Join a room!" },
                 new ButtonInfo { buttonText = "Create Public Room", method =() => RoomMods.CreatePublicRoom(), isTogglable = false, toolTip = "Create Public!" },
                 new ButtonInfo { buttonText = "Rejoin Last Joined Lobby", method =() => RoomMods.RejoinLastRoom(), isTogglable = false, toolTip = "Rejoin!" },

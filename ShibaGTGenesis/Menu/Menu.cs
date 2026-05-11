@@ -90,7 +90,7 @@ namespace ShibaGTGenesis.Menu
                 fpsdelay = Time.time;
                 if (titleText != null)
                 {
-                    titleText.text = $"ShibaGT Genesis V1.0 - FPS: {Mathf.RoundToInt(1.0f / Time.deltaTime)}";
+                    titleText.text = $"ShibaGT Genesis V{PluginInfo.Version} - FPS: {Mathf.RoundToInt(1.0f / Time.deltaTime)}";
                 }
             }
 

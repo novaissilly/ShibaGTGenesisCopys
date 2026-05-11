@@ -148,6 +148,8 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Look At Closest", method =() => RigMods.LookAtClosest(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "Closest!" },
                 new ButtonInfo { buttonText = "Spin Bot [lg]", method =() => RigMods.SpinBot(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "Spin!" },
                 new ButtonInfo { buttonText = "T Pose [rg]", method =() => RigMods.Tpose(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "T!" },
+                new ButtonInfo { buttonText = "Helicoptor [lg]", method =() => RigMods.Helicopter(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "vroom vroom!" },
+                new ButtonInfo { buttonText = "Annoy Player Gun", method =() => RigMods.AnnoyGun(), disableMethod =() => RigMods.ResetRig(), isTogglable = true, toolTip = "annoy!" },
                 new ButtonInfo { buttonText = "Head Spin", method =() => RigMods.HeadSpin(), disableMethod =() => RigMods.OffHeadSpin(), isTogglable = true, toolTip = "Spin!" },
                 new ButtonInfo { buttonText = "Head Roll", method =() => RigMods.HeadRoll(), disableMethod =() => RigMods.OffHeadRoll(), isTogglable = true, toolTip = "Roll!" },
                 new ButtonInfo { buttonText = "Spaz Monkey", method =() => RigMods.SpazMonk(), isTogglable = true, toolTip = "Spaz!" },

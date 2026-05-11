@@ -205,6 +205,27 @@ namespace ShibaGTGenesis
             }
         }
 
+        public static void Helicopter()
+        {
+            if (EasyInputs.GetGripButtonDown(EasyHand.LeftHand))
+            {
+                GorillaTagger.Instance.myVRRig.enabled = false;
+
+                GorillaTagger.Instance.myVRRig.transform.position = GorillaLocomotion.Player.Instance.bodyCollider.transform.position + new Vector3(0, 0.3f, 0);
+
+                GorillaTagger.Instance.myVRRig.leftHand.rigTarget.transform.position = GorillaTagger.Instance.myVRRig.transform.position + GorillaTagger.Instance.myVRRig.transform.right * -1f;
+                GorillaTagger.Instance.myVRRig.rightHand.rigTarget.transform.position = GorillaTagger.Instance.myVRRig.transform.position + GorillaTagger.Instance.myVRRig.transform.right * 1f;
+
+                GorillaTagger.Instance.myVRRig.leftHand.rigTarget.transform.rotation = GorillaTagger.Instance.myVRRig.transform.rotation;
+                GorillaTagger.Instance.myVRRig.rightHand.rigTarget.transform.rotation = GorillaTagger.Instance.myVRRig.transform.rotation;
+                GorillaTagger.Instance.myVRRig.transform.rotation = Quaternion.Euler(GorillaTagger.Instance.myVRRig.transform.rotation.eulerAngles + new Vector3(0f, 10f, 0f));
+            }
+            else
+            {
+                GorillaTagger.Instance.myVRRig.enabled = true;
+            }
+        }
+
 
         public static void LucyGun()
         {
@@ -318,6 +339,42 @@ namespace ShibaGTGenesis
                         GorillaTagger.Instance.myVRRig.leftHand.rigTarget.eulerAngles = new Vector3(random.Next(0, 360), random.Next(0, 360), random.Next(0, 360));
                         GorillaTagger.Instance.myVRRig.rightHand.rigTarget.eulerAngles = new Vector3(random.Next(0, 360), random.Next(0, 360), random.Next(0, 360));
                     }
+                }
+
+                if (Menu.Menu.GetGunInput(true))
+                {
+                    VRRig rig = Ray.collider.GetComponentInParent<VRRig>();
+                    if (rig != null && rig != GorillaTagger.Instance.myVRRig)
+                    {
+                        Menu.Menu.lockTarget = rig;
+                        Menu.Menu.gunLocked = true;
+                    }
+                }
+                else
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = true;
+                }
+            }
+            else
+            {
+                Menu.Menu.lockTarget = null;
+                Menu.Menu.gunLocked = false;
+            }
+        }
+
+        public static void AnnoyGun()
+        {
+            if (Menu.Menu.GetGunInput(false))
+            {
+                var GunData = Menu.Menu.RenderGun();
+                GameObject Pointer = GunData.Pointer;
+                RaycastHit Ray = GunData.Ray;
+
+                if (Menu.Menu.lockTarget && Menu.Menu.gunLocked)
+                {
+                    GorillaTagger.Instance.myVRRig.enabled = false;
+                    GorillaTagger.Instance.myVRRig.transform.position = Menu.Menu.lockTarget.transform.position + new Vector3(UnityEngine.Random.Range(-2f, 3f), UnityEngine.Random.Range(0f, 2f), UnityEngine.Random.Range(-2f, 3f));
+
                 }
 
                 if (Menu.Menu.GetGunInput(true))

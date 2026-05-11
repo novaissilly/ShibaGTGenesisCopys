@@ -274,8 +274,8 @@ namespace ShibaGTGenesis.Menu
                 line.useWorldSpace = true;
                 line.material = new Material(Shader.Find("GUI/Text Shader"));
                 line.positionCount = 2;
-                line.startWidth = 0.02f;
-                line.endWidth = 0.02f;
+                line.startWidth = 0.013f;
+                line.endWidth = 0.013f;
             }
             guncolor = Color.red;
             if (gunLocked)

@@ -23,8 +23,6 @@ namespace ShibaGTGenesis
             { }
         }
 
-        static bool FakeOculusBool;
-
         public static void SlideControl()
         {
             GorillaLocomotion.Player.Instance.slideControl = 1f;
@@ -60,18 +58,13 @@ namespace ShibaGTGenesis
         {
             if (EasyInputs.GetSecondaryButtonDown(EasyHand.RightHand))
             {
-                FakeOculusBool = true;
                 GameObject.Find("LeftHand Controller").SetActive(false);
                 GameObject.Find("RightHand Controller").SetActive(false);
             }
             else
             {
-                if (FakeOculusBool)
-                {
-                    GameObject.Find("LeftHand Controller").SetActive(true);
-                    GameObject.Find("RightHand Controller").SetActive(true);
-                    FakeOculusBool = false;
-                }
+                GameObject.Find("LeftHand Controller").SetActive(true);
+                GameObject.Find("RightHand Controller").SetActive(true);
             }
         }
 

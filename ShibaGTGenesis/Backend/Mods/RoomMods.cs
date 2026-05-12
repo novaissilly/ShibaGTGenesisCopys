@@ -17,7 +17,7 @@ namespace ShibaGTGenesis
 
         public static void JoinRandomRoom()
         {
-            PhotonNetwork.JoinRandomRoom();
+            Menu.Menu.Instance.Controller().JoinPublicRoom(false);
         }
 
         public static void BDisconnect()
@@ -25,6 +25,7 @@ namespace ShibaGTGenesis
             if (EasyInputs.GetSecondaryButtonDown(EasyHand.RightHand))
             {
                 PhotonNetwork.Disconnect();
+                Menu.Menu.Instance.Controller().DisconnectCleanup();
             }
         }
         public static void CreatePublicRoom()
@@ -41,12 +42,14 @@ namespace ShibaGTGenesis
                 IsVisible = true
             };
             PhotonNetwork.CreateRoom("HANJ", roomOptions);
+            Menu.Menu.Instance.Controller().AttemptToJoinSpecificRoom("HANJ");
         }
         public static void RejoinLastRoom()
         {
             if (PhotonNetwork.InRoom)
             {
                 PhotonNetwork.Disconnect();
+                Menu.Menu.Instance.Controller().DisconnectCleanup();
             }
             Menu.Menu.Instance.Controller().AttemptToJoinSpecificRoom(Menu.Menu.Instance.Lastroom);
         }
@@ -55,8 +58,9 @@ namespace ShibaGTGenesis
             if (PhotonNetwork.InRoom)
             {
                 PhotonNetwork.Disconnect();
+                Menu.Menu.Instance.Controller().DisconnectCleanup();
             }
-            PhotonNetwork.JoinRandomRoom();
+            Menu.Menu.Instance.Controller().JoinPublicRoom(false);
         }
 
         public static void MuteGun()

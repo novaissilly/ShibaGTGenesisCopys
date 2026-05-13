@@ -495,7 +495,7 @@ namespace ShibaGTGenesis
                     GorillaTagger.Instance.myVRRig.leftHandPlayer.transform.rotation = Menu.Menu.lockTarget.leftHandPlayer.transform.rotation;
                     GorillaTagger.Instance.myVRRig.head.headTransform.transform.rotation = Menu.Menu.lockTarget.head.headTransform.transform.rotation;
                     GorillaTagger.Instance.myVRRig.head.headTransform.transform.position = Menu.Menu.lockTarget.head.headTransform.transform.position;
-                    GorillaTagger.Instance.offlineVRRig.headConstraint.rotation = Menu.Menu.lockTarget.headConstraint.rotation;
+                    GorillaTagger.Instance.myVRRig.headConstraint.rotation = Menu.Menu.lockTarget.headConstraint.rotation;
                 }
 
                 if (Menu.Menu.GetGunInput(true))

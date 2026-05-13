@@ -42,11 +42,11 @@ namespace ShibaGTGenesis
                 int randomint = UnityEngine.Random.Range(1, 3);
                 if (randomint == 1)
                 {
-                    GorillaTagger.Instance.offlineVRRig.enabled = false;
+                    GorillaTagger.Instance.myVRRig.enabled = false;
                 }
                 else
                 {
-                    GorillaTagger.Instance.offlineVRRig.enabled = true;
+                    GorillaTagger.Instance.myVRRig.enabled = true;
                 }
                 LagBool = true;
             }

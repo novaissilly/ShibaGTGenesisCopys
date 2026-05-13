@@ -248,5 +248,11 @@ namespace ShibaGTGenesis
             PhotonNetwork.LocalPlayer.NickName = "<color=#3B82F6>S</color><color=#4B89F2>H</color><color=#5B90EE>I</color><color=#6B97EA>B</color><color=#7B9EE6>A</color><color=#8BA5E2>G</color><color=#9CA3AF>T GENESIS</color> " 
             + "<color=#60A5FA>BY NOVA</color>\n" + "discord.gg/dtQdz59FJG";
         }
+
+        public static void FlashGenesisName()
+        {
+            string[] colors = { "red", "cyan", "grey", "yellow", "black" };
+            PhotonNetwork.LocalPlayer.NickName = $"<color={colors[UnityEngine.Random.Range(0, colors.Length)]}>SHIBAGT GENESIS</color> <color=#60A5FA>BY NOVA</color>\n" + "discord.gg/dtQdz59FJG";
+        }
     }
 }

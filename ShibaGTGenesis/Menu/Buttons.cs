@@ -86,6 +86,7 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Hide Name On Leaderboard", method =() => RoomMods.HideNameOnLeaderboard(), isTogglable = false, toolTip = "Hide!" },
                 new ButtonInfo { buttonText = "Anti Moderator", method =() => RoomMods.AntiModerator(), isTogglable = false, toolTip = "Hide!" },
                 new ButtonInfo { buttonText = "ShibaGT Genesis Name", method =() => RoomMods.GenesisName(), isTogglable = true, toolTip = "genesisname!" },
+                new ButtonInfo { buttonText = "Flashing ShibaGT Genesis Name", method =() => RoomMods.FlashGenesisName(), isTogglable = true, toolTip = "genesisname!" },
             },
 
             new ButtonInfo[] { // World Mods | 4

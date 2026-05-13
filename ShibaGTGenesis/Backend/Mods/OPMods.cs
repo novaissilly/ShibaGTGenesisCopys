@@ -191,7 +191,7 @@ namespace ShibaGTGenesis
         public static void SetMaster()
         {
             PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
-            NotificationManager.SendNotification("<color=red>[SET MASTER]</color> Set Master enabled!");
+            //NotificationManager.SendNotification("<color=red>[SET MASTER]</color> Set Master enabled!");
         }
         public static void AutoSetMaster()
         {

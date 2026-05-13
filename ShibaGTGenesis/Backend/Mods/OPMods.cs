@@ -106,6 +106,14 @@ namespace ShibaGTGenesis
             Hashtable gamemodehash = new Hashtable();
             gamemodehash.Add("gameMode", gamemode);
             PhotonNetwork.CurrentRoom.SetCustomProperties(gamemodehash);
+            if (gamemode == "HUNT")
+            {
+                PhotonNetwork.Instantiate("Gorilla Hunt Manager", new Vector3(0, 0, 0), Quaternion.identity);
+            }
+            if (gamemode == "BATTLE")
+            {
+                PhotonNetwork.Instantiate("Gorilla Battle Manager", new Vector3(0, 0, 0), Quaternion.identity);
+            }
         }
 
         public static void BreakGamemode()

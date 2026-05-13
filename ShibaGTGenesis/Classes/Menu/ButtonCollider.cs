@@ -21,10 +21,7 @@ namespace ShibaGTGenesis.Classes
                 if (!Settings.buttonsound)
                 {
                     if (cachedAudio == null)
-                    {
-                        NotificationManager.SendNotification("This should never happen but its just incase.", 50000);
                         CacheAudioClip("ShibaGTGenesis.Resources.steal.wav");
-                    }
                     cachedAudio.Play();
                 }
                 Menu.Menu.Instance.Toggle(relatedText);

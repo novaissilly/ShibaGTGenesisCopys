@@ -92,7 +92,7 @@ namespace ShibaGTGenesis.Menu
                 fpsdelay = Time.time;
                 if (titleText != null)
                 {
-                    titleText.text = $"ShibaGT Genesis V{PluginInfo.Version} - FPS: {Mathf.RoundToInt(1.0f / Time.deltaTime)}";
+                    titleText.text = $"ShibaGT Genesis V{PluginInfo.Version} - Fps: {Mathf.RoundToInt(1.0f / Time.deltaTime)}";
                 }
             }
 
@@ -395,7 +395,7 @@ namespace ShibaGTGenesis.Menu
                 }
             }.AddComponent<Text>();
             titleText.color = Color.white;
-            titleText.text = $"ShibaGT Genesis V1.0 - FPS: 72";
+            titleText.text = $"ShibaGT Genesis V1.0 - Fps: 72";
             titleText.supportRichText = true;
             titleText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             titleText.fontSize = 1;

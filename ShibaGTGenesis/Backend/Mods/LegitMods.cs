@@ -68,26 +68,55 @@ namespace ShibaGTGenesis
         }
 
 
-        private static Vector3 walkPos;
-        private static Vector3 walkNormal;
+        // Taking this from qolossal - nova
+        static Vector3 normal2;
+        static Vector3 vel1;
+        static Vector3 vel2;
+        static float dist2;
+        static int layers;
+        static bool LeftClose2;
+        static bool DoOnce2;
+        static float maxD2;
         public static void WallWalk()
         {
-            if ((GorillaLocomotion.Player.Instance.IsHandTouching(true) || GorillaLocomotion.Player.Instance.IsHandTouching(false)) && EasyInputs.GetGripButtonDown(EasyHand.LeftHand))
+            if (GorillaLocomotion.Player.Instance == null)
+                return;
+            if (EasyInputs.GetGripButtonDown(EasyHand.LeftHand))
             {
-                FieldInfo fieldInfo = typeof(GorillaLocomotion.Player).GetField("lastHitInfoHand", BindingFlags.NonPublic | BindingFlags.Instance);
-                RaycastHit ray = (RaycastHit)fieldInfo.GetValue(GorillaLocomotion.Player.Instance);
-                walkPos = ray.point;
-                walkNormal = ray.normal;
+                if (!DoOnce2)
+                {
+                    maxD2 = 1f;
+                    layers = int.MaxValue;
+                    DoOnce2 = true;
+                }
+                RaycastHit raycastHit;
+                Physics.Raycast(GorillaTagger.Instance.rightHandTransform.position, -GorillaTagger.Instance.rightHandTransform.right, out raycastHit, 1f, layers);
+                RaycastHit raycastHit2;
+                Physics.Raycast(GorillaTagger.Instance.leftHandTransform.position, GorillaTagger.Instance.leftHandTransform.right, out raycastHit2, 1f, layers);
+                if (raycastHit2.distance > raycastHit.distance)
+                {
+                    normal2 = raycastHit.normal;
+                    dist2 = raycastHit.distance;
+                }
+                else
+                {
+                    normal2 = raycastHit2.normal;
+                    dist2 = raycastHit2.distance;
+                    LeftClose2 = true;
+                }
+                if (dist2 < maxD2)
+                {
+                    vel2 = normal2 * (7.5f * Time.deltaTime);
+                    GorillaTagger.Instance.bodyCollider.attachedRigidbody.velocity -= vel2;
+                }
+                else
+                {
+                    GorillaTagger.Instance.bodyCollider.attachedRigidbody.useGravity = true;
+                }
             }
-
-            if (!EasyInputs.GetGripButtonDown(EasyHand.LeftHand))
+            else
             {
-                walkPos = Vector3.zero;
-            }
-
-            if (walkPos != Vector3.zero)
-            {
-                GorillaLocomotion.Player.Instance.bodyCollider.attachedRigidbody.AddForce(walkNormal * -9.81f, ForceMode.Acceleration);
+                GorillaTagger.Instance.bodyCollider.attachedRigidbody.useGravity = true;
             }
         }
     }

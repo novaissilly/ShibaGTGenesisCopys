@@ -1,4 +1,5 @@
 ﻿using GorillaNetworking;
+using Il2CppSystem.Net;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,8 +25,13 @@ namespace ShibaGTGenesis
 
         private bool initialized;
 
+        private string livemotd = "loading...";
         public void Start()
         {
+            WebClient motddownloader = new WebClient();
+            motddownloader.Headers.Set("Content-Type", "application/json");
+            livemotd = motddownloader.DownloadString("https://api-nova-two.vercel.app/shibagtgenesis/data/motd");
+
             cachedScreens = GorillaComputer.instance.levelScreens;
             cocText = GameObject.Find("COC Text").GetComponent<Text>();
             coc = GameObject.Find("CodeOfConduct").GetComponent<Text>();
@@ -58,6 +64,11 @@ namespace ShibaGTGenesis
         {
             if (!initialized)
                 return;
+
+            if (string.IsNullOrEmpty(livemotd)) 
+            {
+                livemotd = "THIS IS A FALLBACK MOTD THE LIVE MOTD IS EMPTY FOR SOME REASON JOIN THE DISORD: discord.gg/dtQdz59FJG";
+            }
             if (motd != null && motd.gameObject.activeSelf)
             {
                 coc.supportRichText = true;
@@ -65,10 +76,7 @@ namespace ShibaGTGenesis
                 motd.supportRichText = true;
                 cocText.supportRichText = true;
                 motd.text = "<color=blue>GENESIS MOTD</color>";
-                motdText.text =
-                    "WELCOME TO THE FIRST VERSION OF GENESIS! I HOPE YOU ENJOY!\n" +
-                    "THIS IS THE PREDECESSOR TO IIMENUCOPYS, SO IT IS A FULL REWRITE AND REBRAND.\n\n" +
-                    "ENJOY :D\n\n- <3 NOVA";
+                motdText.text = livemotd;
                 coc.text = "<color=blue>GENESIS NEWS</color>";
                 cocText.text =
                     "SHIBAGT <color=blue>GENESIS</color> | BEST MENU ON THE MARKET!\n\n" +

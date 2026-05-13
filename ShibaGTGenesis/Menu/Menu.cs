@@ -395,7 +395,7 @@ namespace ShibaGTGenesis.Menu
                 }
             }.AddComponent<Text>();
             titleText.color = Color.white;
-            titleText.text = $"ShibaGT Genesis V1.0 - Fps: 72";
+            titleText.text = $"ShibaGT Genesis V{PluginInfo.Version} - Fps: 72";
             titleText.supportRichText = true;
             titleText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             titleText.fontSize = 1;

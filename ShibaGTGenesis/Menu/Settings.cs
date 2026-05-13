@@ -166,6 +166,16 @@ namespace ShibaGTGenesis.Menu
             }
         }
 
+        public static bool buttonsound;
+        public static void DisableButtonSound()
+        {
+            buttonsound = true;
+        }
+        public static void OFFDisableButtonSound()
+        {
+            buttonsound = false;
+        }
+
         public static bool disablestatus;
         public static void DisableStatus()
         {

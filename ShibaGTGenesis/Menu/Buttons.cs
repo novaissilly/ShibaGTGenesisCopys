@@ -33,6 +33,7 @@ namespace ShibaGTGenesis.Menu
                 new ButtonInfo { buttonText = "Freeze When In Menu", method =() => Settings.FreezeIn(), disableMethod =() => Settings.AllowMovement(), isTogglable = true, toolTip = "makes you freeze when menu open!"},
                 new ButtonInfo { buttonText = "Move Menu Status Gun", method =() => Settings.MoveStatusGun(), isTogglable = true, toolTip = "mmoves status!"},
                 new ButtonInfo { buttonText = "Disable Menu Status In Stump", method =() => Settings.DisableStatus(), disableMethod =() => Settings.OFFDisableStatus(), isTogglable = true, toolTip = "Rainbow!"},
+                new ButtonInfo { buttonText = "Disable Button Sounds", method =() => Settings.DisableButtonSound(), disableMethod =() => Settings.OFFDisableButtonSound(), isTogglable = true, toolTip = "disables button sounds!"},
             },
 
             new ButtonInfo[] { // OP Mods | 2

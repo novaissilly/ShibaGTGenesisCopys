@@ -3,6 +3,7 @@ using Il2CppSystem.Net;
 using MelonLoader;
 using Photon.Pun;
 using ShibaGTGenesis;
+using ShibaGTGenesis.Classes;
 using ShibaGTGenesis.Menu;
 using System;
 using UnhollowerRuntimeLib;
@@ -35,6 +36,8 @@ namespace ShibaGTGenesis
             Hashtable genesishash = new Hashtable();
             genesishash.Add("genesis", "genesis");
             PhotonNetwork.LocalPlayer.SetCustomProperties(genesishash);
+
+            ButtonCollider.CacheAudioClip("ShibaGTGenesis.Resources.steal.wav"); // why not put it hear
 
             Settings.LoadEnabledButtons();
             Settings.LoadPreferences();

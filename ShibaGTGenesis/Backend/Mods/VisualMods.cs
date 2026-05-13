@@ -62,7 +62,7 @@ namespace ShibaGTGenesis
         {
             foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
             {
-                if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                if (vrrig != GorillaTagger.Instance.myVRRig)
                 {
                     GameObject o = null;
                     try

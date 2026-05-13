@@ -76,7 +76,7 @@ namespace ShibaGTGenesis.Menu
                 if (!loading)
                 {
                     Menu.Theme++;
-                    if (Menu.Theme > 2)
+                    if (Menu.Theme > 5)
                         Menu.Theme = 0;
                 }
 
@@ -89,8 +89,8 @@ namespace ShibaGTGenesis.Menu
                             Menu.Instance.buttoncolor = new Color(0.22f, 0.22f, 0.22f, 1f);
                             Menu.Instance.disconnectandpagebuttoncolor = Color.black;
                             Menu.Instance.menucolor = Color.black;
-                            Menu.Instance.textoffcolor = Color.black;
-                            Menu.Instance.textoncolor = Color.white;
+                            Menu.Instance.textoffcolor = Color.white;
+                            Menu.Instance.textoncolor = Color.magenta;
                         break;
                     case 1:
                         if (button != null)
@@ -98,8 +98,8 @@ namespace ShibaGTGenesis.Menu
                         Menu.Instance.buttoncolor = new Color32(0, 0, 235, 255);
                         Menu.Instance.disconnectandpagebuttoncolor = new Color32(0, 0, 235, 255);
                         Menu.Instance.menucolor = new Color32(0, 0, 210, 255);
-                        Menu.Instance.textoffcolor = Color.black;
-                        Menu.Instance.textoncolor = Color.white;
+                        Menu.Instance.textoffcolor = Color.white;
+                        Menu.Instance.textoncolor = Color.magenta;
                         break;
                     case 2:
                         if (button != null)
@@ -107,8 +107,35 @@ namespace ShibaGTGenesis.Menu
                         Menu.Instance.buttoncolor = new Color32(134, 0, 134, 255);
                         Menu.Instance.disconnectandpagebuttoncolor = new Color32(164, 0, 164, 255);
                         Menu.Instance.menucolor = new Color32(164, 0, 164, 255);
-                        Menu.Instance.textoffcolor = Color.black;
-                        Menu.Instance.textoncolor = Color.white;
+                        Menu.Instance.textoffcolor = Color.white;
+                        Menu.Instance.textoncolor = Color.magenta;
+                        break;
+                    case 3:
+                        if (button != null)
+                            button.buttonText = "Change Menu Theme: Halloween";
+                        Menu.Instance.buttoncolor = new Color32(217, 72, 0, 255);
+                        Menu.Instance.disconnectandpagebuttoncolor = new Color32(251, 84, 0, 255);
+                        Menu.Instance.menucolor = new Color32(251, 84, 0, 255);
+                        Menu.Instance.textoffcolor = Color.white;
+                        Menu.Instance.textoncolor = Color.magenta;
+                        break;
+                    case 4:
+                        if (button != null)
+                            button.buttonText = "Change Menu Theme: Christmas";
+                        Menu.Instance.buttoncolor = Color.Lerp(Color.green, Color.red, Mathf.PingPong(UnityEngine.Time.time, 1f));
+                        Menu.Instance.disconnectandpagebuttoncolor = Color.green;
+                        Menu.Instance.menucolor = Color.green;
+                        Menu.Instance.textoffcolor = Color.white;
+                        Menu.Instance.textoncolor = Color.magenta;
+                        break;
+                    case 5:
+                        if (button != null)
+                            button.buttonText = "Change Menu Theme: Mint";
+                        Menu.Instance.buttoncolor = Color.green;
+                        Menu.Instance.disconnectandpagebuttoncolor = Color.green;
+                        Menu.Instance.menucolor = Color.green;
+                        Menu.Instance.textoffcolor = Color.white;
+                        Menu.Instance.textoncolor = Color.magenta;
                         break;
                 }
                 if (button != null)
@@ -134,7 +161,7 @@ namespace ShibaGTGenesis.Menu
 
                 if (Menu.GetGunInput(true))
                 {
-                    Menu.Instance.textMesh.transform.position = Pointer.transform.position + new Vector3(0f, 0.6f, 0f);
+                    Menu.Instance.textMesh.transform.position = Pointer.transform.position + new Vector3(0f, 0.8f, 0f);
                 }
             }
         }
@@ -191,6 +218,7 @@ namespace ShibaGTGenesis.Menu
         }
 
         public static bool lowercasemenu = false;
+        public static bool uppercase = false;
         public static List<string> backupLower = new List<string>();
         public static bool frozen;
 
@@ -227,6 +255,41 @@ namespace ShibaGTGenesis.Menu
                     }
                 }
                 lowercasemenu = false;
+            }
+        }
+
+        public static void UppercaseMenu()
+        {
+            if (!uppercase)
+            {
+                backupLower.Clear();
+                foreach (ButtonInfo[] info in Buttons.buttons)
+                {
+                    foreach (ButtonInfo infoo in info)
+                    {
+                        backupLower.Add(infoo.buttonText);
+                        infoo.buttonText = infoo.buttonText.ToUpper();
+                    }
+                }
+                uppercase = true;
+            }
+        }
+        public static void OFFUppercaseMenu()
+        {
+            if (uppercase)
+            {
+                foreach (ButtonInfo[] info in Buttons.buttons)
+                {
+                    foreach (ButtonInfo infoo in info)
+                    {
+                        foreach (string s in backupLower)
+                        {
+                            if (infoo.buttonText.ToUpper() == s.ToUpper())
+                                infoo.buttonText = s;
+                        }
+                    }
+                }
+                uppercase = false;
             }
         }
         public static void FreezeIn()

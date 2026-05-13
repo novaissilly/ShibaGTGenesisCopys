@@ -235,7 +235,7 @@ namespace ShibaGTGenesis
                 if (rig != null && rig != GorillaTagger.Instance.myVRRig)
                 {
                     Vector3 them = rig.headMesh.transform.position;
-                    if (Vector3.Distance(them, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 0.75f)
+                    if (Vector3.Distance(them, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 3.75f)
                     {
                         for (int i = 0; i < 150; i++)
                         {
@@ -256,7 +256,7 @@ namespace ShibaGTGenesis
                 if (rig != null && rig != GorillaTagger.Instance.myVRRig)
                 {
                     Vector3 them = rig.headMesh.transform.position;
-                    if (Vector3.Distance(them, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 0.75f)
+                    if (Vector3.Distance(them, GorillaTagger.Instance.myVRRig.headMesh.transform.position) <= 3.75f)
                     {
                         for (int i = 0; i < 150; i++)
                         {
